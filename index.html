@@ -1,432 +1,363 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexGen Gaming Hub</title>
-    <!-- Tailwind CSS for rapid styling -->
+    <title>Ahmad Abu Alhaol</title>
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons for vector graphics -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts: Inter for general text, Orbitron for headings -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Orbitron', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9', // Primary Cyan
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        accent: {
-                            500: '#8b5cf6', // Secondary Purple
-                            600: '#7c3aed',
-                        },
-                        dark: {
-                            900: '#0f172a', // Deep background
-                            800: '#1e293b', // Card background
-                            700: '#334155', // Border color
-                        }
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                        'hero-pattern': "url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Custom scrollbar for a gamer feel */
-        ::-webkit-scrollbar {
-            width: 8px;
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --border: #334155;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-dim: rgba(56, 189, 248, 0.1);
         }
-        ::-webkit-scrollbar-track {
-            background: #0f172a; 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #38bdf8; 
-            border-radius: 4px;
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.3;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0ea5e9; 
-        }
-        
-        /* Glassmorphism utility */
-        .glass {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        .content { position: relative; z-index: 1; }
 
-        /* Neon glow utilities */
-        .glow-text {
-            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5), 0 0 20px rgba(14, 165, 233, 0.3);
+        .glow {
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.08), 0 0 60px rgba(56, 189, 248, 0.03);
         }
-        .glow-box:hover {
-            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            transition: border-color 0.2s, transform 0.2s;
         }
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .tag {
+            display: inline-block;
+            padding: 0.125rem 0.625rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+        .section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .fab {
+            position: fixed;
+            width: 48px;
+            height: 48px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: #0f172a;
+            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 100;
+        }
+        .fab:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(56, 189, 248, 0.5); }
+        .fab-top { top: 1.25rem; right: 1.25rem; }
     </style>
 </head>
-<body class="bg-dark-900 text-gray-300 font-sans antialiased overflow-x-hidden">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0">
-                    <a href="#" class="flex items-center gap-2 group">
-                        <i data-lucide="gamepad-2" class="text-brand-400 group-hover:text-brand-300 transition-colors w-8 h-8"></i>
-                        <span class="font-display font-bold text-2xl text-white tracking-wider glow-text">NEX<span class="text-brand-400">GEN</span></span>
-                    </a>
-                </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home" class="text-white hover:text-brand-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
-                        <a href="#features" class="text-gray-300 hover:text-white hover:text-brand-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Features</a>
-                        <a href="#games" class="text-gray-300 hover:text-white hover:text-brand-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Top Games</a>
-                        <a href="#community" class="text-gray-300 hover:text-white hover:text-brand-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Community</a>
-                    </div>
-                </div>
+<canvas id="particles"></canvas>
 
-                <!-- CTA Button -->
-                <div class="hidden md:block">
-                    <a href="#join" class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-bold text-white rounded-md bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-500 hover:to-accent-500 transition-all duration-300 shadow-[0_0_15px_rgba(14,165,233,0.5)] hover:shadow-[0_0_25px_rgba(139,92,246,0.6)]">
-                        <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
-                        <span class="relative">Play Now</span>
-                    </a>
-                </div>
+<div class="content max-w-3xl mx-auto px-6 py-16 md:py-24">
 
-                <!-- Mobile menu button -->
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-dark-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-900 focus:ring-white">
-                        <span class="sr-only">Open main menu</span>
-                        <i data-lucide="menu" class="block h-6 w-6"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div class="md:hidden hidden bg-dark-900 border-b border-dark-700" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="#features" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Features</a>
-                <a href="#games" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Top Games</a>
-                <a href="#community" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Community</a>
-                <a href="#join" class="mt-4 block w-full text-center px-6 py-3 font-bold text-white rounded-md bg-gradient-to-r from-brand-600 to-accent-600">Play Now</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <!-- Background Image & Overlay -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-30 mix-blend-luminosity"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-dark-900/80 via-dark-900/90 to-dark-900"></div>
-            <!-- Animated background elements -->
-            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/20 rounded-full blur-[128px] animate-pulse-slow"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500/20 rounded-full blur-[128px] animate-pulse-slow" style="animation-delay: 1.5s;"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="animate-float">
-                <span class="inline-block py-1 px-3 rounded-full bg-dark-800 border border-brand-500/30 text-brand-400 text-sm font-semibold tracking-wider mb-6 uppercase shadow-[0_0_10px_rgba(14,165,233,0.2)]">
-                    Next Generation Engine
-                </span>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-display font-black text-white mb-6 tracking-tight leading-tight">
-                ENTER THE <br class="hidden md:block" />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-accent-500 glow-text">MULTIVERSE</span>
-            </h1>
-            
-            <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-400 mx-auto mb-10 leading-relaxed">
-                Experience unparalleled graphics, seamless cross-platform play, and a community of millions. Your ultimate gaming journey starts here.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <a href="#download" class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white rounded-lg bg-white/10 border border-white/20 backdrop-blur-md hover:bg-white/20 transition-all overflow-hidden">
-                    <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
-                    <i data-lucide="download" class="mr-2 w-5 h-5"></i>
-                    Download Client
-                </a>
-                <a href="#trailer" class="inline-flex items-center justify-center px-8 py-4 font-bold text-white rounded-lg bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:shadow-[0_0_30px_rgba(14,165,233,0.6)] transition-all">
-                    <i data-lucide="play" class="mr-2 w-5 h-5 fill-current"></i>
-                    Watch Trailer
-                </a>
-            </div>
-
-            <!-- Stats/Social Proof -->
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-dark-700/50 pt-8">
-                <div>
-                    <p class="text-3xl font-display font-bold text-white">2.5M+</p>
-                    <p class="text-sm text-brand-400 mt-1 uppercase tracking-wider">Active Players</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-display font-bold text-white">4K</p>
-                    <p class="text-sm text-brand-400 mt-1 uppercase tracking-wider">Resolution</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-display font-bold text-white">120</p>
-                    <p class="text-sm text-brand-400 mt-1 uppercase tracking-wider">FPS Ready</p>
-                </div>
-                <div>
-                    <p class="text-3xl font-display font-bold text-white">0</p>
-                    <p class="text-sm text-brand-400 mt-1 uppercase tracking-wider">Pay to Win</p>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#features" class="text-gray-500 hover:text-white transition-colors">
-                <i data-lucide="chevron-down" class="w-8 h-8"></i>
+    <!-- Header -->
+    <header class="mb-16">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
+            Ahmad <span class="text-[var(--accent)]">Abu Alhaol</span>
+        </h1>
+        <p class="text-lg text-[var(--muted)] mb-4 max-w-xl">
+            AI Technical Lead &amp; System Architect
+        </p>
+        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--muted)]">
+            <span class="flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                Ottawa, Canada
+            </span>
+            <a href="mailto:ahmad@example.com" class="flex items-center gap-1.5 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                ahmad@abualhaol.dev
+            </a>
+            <a href="https://linkedin.com/in/abualhaol" target="_blank" rel="noopener" class="flex items-center gap-1.5 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                LinkedIn
+            </a>
+            <a href="https://github.com/abualhaol" target="_blank" rel="noopener" class="flex items-center gap-1.5 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                GitHub
             </a>
         </div>
+    </header>
+
+    <!-- Summary -->
+    <section class="mb-16">
+        <h2 class="section-title">About</h2>
+        <p class="text-[var(--muted)] leading-relaxed text-base md:text-lg">
+            AI Technical Lead and System Architect with deep expertise in architecting Agentic AI systems, 
+            intelligent edge platforms, and advanced cybersecurity solutions. Proven track record bridging 
+            academic research and industrial-scale deployment — from patented innovations to production-grade 
+            ML pipelines. Passionate about building resilient, ethical AI systems and leading high-performing 
+            engineering teams.
+        </p>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-24 bg-dark-900 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-brand-500 font-semibold tracking-wide uppercase">Why Choose NexGen</h2>
-                <p class="mt-2 text-3xl leading-8 font-display font-bold tracking-tight text-white sm:text-4xl">
-                    Built for the Hardcore
+    <!-- Experience -->
+    <section class="mb-16">
+        <h2 class="section-title">Experience</h2>
+        <div class="space-y-4">
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
+                    <h3 class="font-semibold text-base">AI Technical Lead</h3>
+                    <span class="text-xs text-[var(--muted)]">2022 &ndash; Present</span>
+                </div>
+                <p class="text-sm text-[var(--muted)] mb-2">Dell Technologies &middot; Ottawa, Canada</p>
+                <p class="text-sm text-[var(--muted)] leading-relaxed">
+                    Spearheading Multi-modal Agentic AI benchmarking. Architecting zero-touch automation 
+                    through GNN-based Digital Twins and Knowledge Graphs for 5G/6G O-RAN optimization.
                 </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="glass p-8 rounded-2xl glow-box transition-all duration-300 group cursor-pointer">
-                    <div class="w-14 h-14 rounded-lg bg-brand-500/10 flex items-center justify-center mb-6 border border-brand-500/20 group-hover:scale-110 transition-transform">
-                        <i data-lucide="zap" class="w-7 h-7 text-brand-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3 font-display">Ultra-Low Latency</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        Global server infrastructure ensures sub-20ms ping for competitive integrity. Every millisecond counts.
-                    </p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="glass p-8 rounded-2xl glow-box transition-all duration-300 group cursor-pointer relative overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-accent-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative z-10">
-                        <div class="w-14 h-14 rounded-lg bg-accent-500/10 flex items-center justify-center mb-6 border border-accent-500/20 group-hover:scale-110 transition-transform">
-                            <i data-lucide="monitor-smartphone" class="w-7 h-7 text-accent-400"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3 font-display">True Cross-Play</h3>
-                        <p class="text-gray-400 leading-relaxed">
-                            Play with your friends regardless of their platform. PC, Console, or Mobile - one unified ecosystem.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="glass p-8 rounded-2xl glow-box transition-all duration-300 group cursor-pointer">
-                    <div class="w-14 h-14 rounded-lg bg-brand-500/10 flex items-center justify-center mb-6 border border-brand-500/20 group-hover:scale-110 transition-transform">
-                        <i data-lucide="shield-check" class="w-7 h-7 text-brand-400"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-3 font-display">Advanced Anti-Cheat</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        Kernel-level protection driven by AI behavioral analysis keeps the playing field perfectly level.
-                    </p>
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    <span class="tag">AI</span>
+                    <span class="tag">System Design</span>
+                    <span class="tag">Research</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Showcase / Games Section -->
-    <section id="games" class="py-24 bg-dark-800 relative border-y border-dark-700/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-end mb-12">
-                <div>
-                    <h2 class="text-3xl font-display font-bold text-white sm:text-4xl">Featured Titles</h2>
-                    <p class="mt-2 text-gray-400">Explore our most popular universes.</p>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
+                    <h3 class="font-semibold text-base">Assistant Professor &mdash; Data Science</h3>
+                    <span class="text-xs text-[var(--muted)]">2020 &ndash; 2022</span>
                 </div>
-                <a href="#" class="hidden sm:flex items-center text-brand-400 hover:text-brand-300 transition-colors font-medium">
-                    View All Games <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
-                </a>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Game Card 1 -->
-                <div class="group relative rounded-2xl overflow-hidden cursor-pointer">
-                    <!-- Placeholder image matching gaming theme -->
-                    <img src="https://images.unsplash.com/photo-1605901309584-818e25960b8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cyberpunk City" class="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                    <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-accent-100 bg-accent-600/80 rounded mb-2 inline-block">RPG</span>
-                        <h3 class="text-2xl font-display font-bold text-white mb-1">Neon Drift</h3>
-                        <p class="text-sm text-gray-300 mb-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Survive the corporate wars in a sprawling metropolis.</p>
-                        <div class="flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                            <span class="text-brand-400 text-sm font-semibold">Free to Play</span>
-                            <button class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-colors">
-                                <i data-lucide="play" class="w-4 h-4 ml-0.5"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Game Card 2 -->
-                <div class="group relative rounded-2xl overflow-hidden cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Space Battle" class="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                    <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-brand-100 bg-brand-600/80 rounded mb-2 inline-block">FPS</span>
-                        <h3 class="text-2xl font-display font-bold text-white mb-1">Void Commander</h3>
-                        <p class="text-sm text-gray-300 mb-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Tactical 5v5 zero-gravity combat.</p>
-                        <div class="flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                            <span class="text-brand-400 text-sm font-semibold">$29.99</span>
-                            <button class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-colors">
-                                <i data-lucide="shopping-cart" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Game Card 3 -->
-                <div class="group relative rounded-2xl overflow-hidden cursor-pointer sm:col-span-2 lg:col-span-1">
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fantasy Setup" class="w-full h-80 object-cover transform group-hover:scale-110 transition-transform duration-700">
-                    <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                    <div class="absolute bottom-0 left-0 p-6 w-full">
-                        <span class="px-2 py-1 text-xs font-bold uppercase tracking-wider text-green-100 bg-green-600/80 rounded mb-2 inline-block">MOBA</span>
-                        <h3 class="text-2xl font-display font-bold text-white mb-1">Aethelgard</h3>
-                        <p class="text-sm text-gray-300 mb-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">Command mythical heroes in epic lane battles.</p>
-                        <div class="flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                            <span class="text-brand-400 text-sm font-semibold">Free to Play</span>
-                            <button class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-500 hover:text-white transition-colors">
-                                <i data-lucide="play" class="w-4 h-4 ml-0.5"></i>
-                            </button>
-                        </div>
-                    </div>
+                <p class="text-sm text-[var(--muted)] mb-2">Princess Sumaya University for Technology &middot; Amman, Jordan</p>
+                <p class="text-sm text-[var(--muted)] leading-relaxed">
+                    Founded the Data Science department; designed industry-aligned BSc/MSc curricula and 
+                    forged strategic partnerships. Contributed to the Jordan National AI Ethics Charter.
+                </p>
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    <span class="tag">AI</span>
+                    <span class="tag">Education</span>
+                    <span class="tag">Leadership</span>
                 </div>
             </div>
-            
-            <div class="mt-8 text-center sm:hidden">
-                <a href="#" class="inline-flex items-center text-brand-400 hover:text-brand-300 font-medium">
-                    View All Games <i data-lucide="arrow-right" class="ml-2 w-4 h-4"></i>
-                </a>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
+                    <h3 class="font-semibold text-base">Principal Data Scientist</h3>
+                    <span class="text-xs text-[var(--muted)]">2019 &ndash; 2020</span>
+                </div>
+                <p class="text-sm text-[var(--muted)] mb-2">Huawei Technologies &middot; Ottawa, Canada</p>
+                <p class="text-sm text-[var(--muted)] leading-relaxed">
+                    Technical lead for AI-driven cybersecurity. Architected adaptive Deep Learning 
+                    frameworks for real-time threat detection against zero-day attacks.
+                </p>
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    <span class="tag">AI</span>
+                    <span class="tag">Security</span>
+                    <span class="tag">Deep Learning</span>
+                </div>
+            </div>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
+                    <h3 class="font-semibold text-base">Senior Data Scientist</h3>
+                    <span class="text-xs text-[var(--muted)]">2017 &ndash; 2019</span>
+                </div>
+                <p class="text-sm text-[var(--muted)] mb-2">Larus Technologies &middot; Ottawa, Canada</p>
+                <p class="text-sm text-[var(--muted)] leading-relaxed">
+                    Designed scalable Decision Support Systems (DSS) and predictive analytics 
+                    models for logistics optimization and stakeholder-driven requirements.
+                </p>
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    <span class="tag">AI</span>
+                    <span class="tag">System Design</span>
+                    <span class="tag">Data Pipelines</span>
+                </div>
+            </div>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
+                    <h3 class="font-semibold text-base">Cybersecurity Research Scientist</h3>
+                    <span class="text-xs text-[var(--muted)]">2014 &ndash; 2017</span>
+                </div>
+                <p class="text-sm text-[var(--muted)] mb-2">VENUS Cybersecurity / Carleton University &middot; Ottawa, Canada</p>
+                <p class="text-sm text-[var(--muted)] leading-relaxed">
+                    Led R&D on real-time anomaly detection for large-scale networks. Designed ML models 
+                    to detect IP Prefix Hijacking and DDoS attacks.
+                </p>
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    <span class="tag">Security</span>
+                    <span class="tag">Research</span>
+                    <span class="tag">ML</span>
+                </div>
+            </div>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
+                    <h3 class="font-semibold text-base">Wireless System Engineer</h3>
+                    <span class="text-xs text-[var(--muted)]">2008 &ndash; 2009</span>
+                </div>
+                <p class="text-sm text-[var(--muted)] mb-2">Broadcom Corporation &middot; San Diego, USA</p>
+                <p class="text-sm text-[var(--muted)] leading-relaxed">
+                    System-level analysis and optimization of 3G/4G wireless core components. 
+                    Validated RF/RX front-end performance for production chipsets.
+                </p>
+                <div class="flex flex-wrap gap-1.5 mt-3">
+                    <span class="tag">Wireless</span>
+                    <span class="tag">System Design</span>
+                    <span class="tag">RF</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA / Community Section -->
-    <section id="community" class="py-24 bg-dark-900 relative overflow-hidden">
-        <!-- Abstract shapes -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-brand-600/10 blur-[80px]"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-accent-600/10 blur-[100px]"></div>
+    <!-- Education -->
+    <section class="mb-16">
+        <h2 class="section-title">Education</h2>
+        <div class="space-y-4">
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
+                    <h3 class="font-semibold">PhD in Electrical &amp; Computer Engineering</h3>
+                    <span class="text-xs text-[var(--muted)]">2005 &ndash; 2008</span>
+                </div>
+                <p class="text-sm text-[var(--muted)]">University of Mississippi, USA &middot; GPA: 4.0/4.0</p>
+                <p class="text-sm text-[var(--muted)] mt-1">Sigma Xi &amp; Phi Kappa Phi Honor Societies. Research in MIMO-OFDM wireless systems.</p>
+            </div>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
+                    <h3 class="font-semibold">MEng in Technology Innovation Management</h3>
+                    <span class="text-xs text-[var(--muted)]">2014 &ndash; 2015</span>
+                </div>
+                <p class="text-sm text-[var(--muted)]">Carleton University, Canada &middot; GPA: 11.0/12.0</p>
+                <p class="text-sm text-[var(--muted)] mt-1">Specialized in Cybersecurity Architecture and Technology Management.</p>
+            </div>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
+                    <h3 class="font-semibold">MSc in Electrical Engineering</h3>
+                    <span class="text-xs text-[var(--muted)]">2002 &ndash; 2004</span>
+                </div>
+                <p class="text-sm text-[var(--muted)]">Jordan University of Science &amp; Technology &middot; GPA: 84.4/100</p>
+            </div>
+            <div class="card p-5">
+                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
+                    <h3 class="font-semibold">BSc in Electrical Engineering</h3>
+                    <span class="text-xs text-[var(--muted)]">1995 &ndash; 2000</span>
+                </div>
+                <p class="text-sm text-[var(--muted)]">Jordan University of Science &amp; Technology</p>
+            </div>
+        </div>
+    </section>
 
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <i data-lucide="swords" class="w-16 h-16 mx-auto text-white/50 mb-6"></i>
-            <h2 class="text-4xl font-display font-black text-white mb-6">Join The Resistance</h2>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-                Connect with millions of players on our official Discord. Find a squad, enter tournaments, and get exclusive drops.
-            </p>
-            
-            <form class="max-w-md mx-auto flex gap-2 mb-8" onsubmit="event.preventDefault(); alert('Subscribed! (Simulation)');">
-                <input type="email" placeholder="Enter your email for beta access" required class="flex-1 bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
-                <button type="submit" class="px-6 py-3 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-lg transition-colors shadow-[0_0_10px_rgba(14,165,233,0.3)]">
-                    Join
-                </button>
-            </form>
-
-            <div class="flex justify-center gap-6">
-                <a href="#" class="w-12 h-12 rounded-full glass flex items-center justify-center text-gray-400 hover:text-white hover:border-brand-500 transition-all hover:scale-110">
-                    <i data-lucide="twitter" class="w-5 h-5"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full glass flex items-center justify-center text-gray-400 hover:text-white hover:border-accent-500 transition-all hover:scale-110">
-                    <i data-lucide="twitch" class="w-5 h-5"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full glass flex items-center justify-center text-gray-400 hover:text-white hover:border-brand-500 transition-all hover:scale-110">
-                    <i data-lucide="youtube" class="w-5 h-5"></i>
-                </a>
+    <!-- Metrics -->
+    <section class="mb-16">
+        <h2 class="section-title">Impact</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="card p-5 text-center">
+                <p class="text-2xl font-bold text-[var(--accent)]">1K+</p>
+                <p class="text-xs text-[var(--muted)] mt-1">Citations</p>
+            </div>
+            <div class="card p-5 text-center">
+                <p class="text-2xl font-bold text-[var(--accent)]">42+</p>
+                <p class="text-xs text-[var(--muted)] mt-1">Patents</p>
+            </div>
+            <div class="card p-5 text-center">
+                <p class="text-2xl font-bold text-[var(--accent)]">40+</p>
+                <p class="text-xs text-[var(--muted)] mt-1">Conferences</p>
+            </div>
+            <div class="card p-5 text-center">
+                <p class="text-2xl font-bold text-[var(--accent)]">14+</p>
+                <p class="text-xs text-[var(--muted)] mt-1">Journals</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-12 border-t border-dark-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center gap-2 mb-4 md:mb-0">
-                <i data-lucide="gamepad-2" class="text-brand-500 w-6 h-6"></i>
-                <span class="font-display font-bold text-xl text-white">NEXGEN</span>
-            </div>
-            
-            <div class="flex gap-6 text-sm text-gray-500">
-                <a href="#" class="hover:text-brand-400 transition-colors">Terms of Service</a>
-                <a href="#" class="hover:text-brand-400 transition-colors">Privacy Policy</a>
-                <a href="#" class="hover:text-brand-400 transition-colors">Support</a>
-            </div>
-            
-            <p class="text-gray-600 text-sm mt-4 md:mt-0">
-                &copy; 2026 NexGen Gaming. All rights reserved.
-            </p>
-        </div>
+    <footer class="border-t border-[var(--border)] pt-8 text-center text-sm text-[var(--muted)]">
+        <p>&copy; 2026 Ahmad Abu Alhaol. All rights reserved.</p>
     </footer>
 
-    <!-- Scripts -->
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+</div>
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-dark-900/90', 'border-b', 'border-dark-700/50', 'shadow-lg');
-                navbar.classList.remove('glass');
-            } else {
-                navbar.classList.remove('bg-dark-900/90', 'border-b', 'border-dark-700/50', 'shadow-lg');
-                navbar.classList.add('glass');
-            }
-        });
+<script>
+    (function() {
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let w, h, particles = [];
 
-        // Mobile menu toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
+        function resize() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-        });
-        
-        // Close mobile menu on link click
-        const mobileLinks = menu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                menu.classList.add('hidden');
+        const count = 80;
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                r: Math.random() * 2 + 1,
             });
-        });
-    </script>
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = 'rgba(56, 189, 248, 0.6)';
+            for (const p of particles) {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0) p.x = w;
+                if (p.x > w) p.x = 0;
+                if (p.y < 0) p.y = h;
+                if (p.y > h) p.y = 0;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.1)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+    })();
+</script>
 </body>
 </html>
