@@ -139,8 +139,8 @@
 
 <div id="blocker">
   <h1>⚔ BATTLE FIELD</h1>
-  <p>Click to Play</p>
-  <div class="sub">WASD &bull; Left Click Shoot &bull; Scroll/R to Switch &bull; B Build &bull; 1-4 Pieces</div>
+  <p>Click to Play — Practice Range</p>
+  <div class="sub">WASD Move &bull; Left Click Shoot &bull; B Build &bull; 1-3 Weapons &bull; Aim for the Head!</div>
 </div>
 
 <div id="hud">
@@ -196,13 +196,7 @@
   <div id="kill-popup"></div>
 </div>
 
-<div id="damage-overlay"></div>
-
-<div id="game-over">
-  <h1 id="end-title">DEFEATED</h1>
-  <p id="end-stats">Eliminations: 0</p>
-  <button id="respawn-btn">RESPAWN</button>
-</div>
+<div id="damage-overlay" style="display:none"></div>
 
 <script type="importmap">
 {
@@ -436,34 +430,38 @@ function placeBuild() {
 }
 
 // ─── BOTS ─────────────────────────────────────────────────────────────────
-const botMat = new THREE.MeshStandardMaterial({ color:0x667788, roughness:0.5, metalness:0.1 });
-const botHeadMat = new THREE.MeshStandardMaterial({ color:0xccbbaa, roughness:0.4 });
-const botGunMat = new THREE.MeshStandardMaterial({ color:0x333344, roughness:0.4, metalness:0.5 });
+const botMat = new THREE.MeshStandardMaterial({ color:0x1a1a1a, roughness:0.7, metalness:0.05 });
+const botHeadMat = new THREE.MeshStandardMaterial({ color:0xeeccaa, roughness:0.4 });
+const botGunMat = new THREE.MeshStandardMaterial({ color:0x222233, roughness:0.4, metalness:0.5 });
 let botDummyGeo = null;
 
-function createBotGeo() {
-  if (botDummyGeo) return botDummyGeo;
-  const torso = new THREE.BoxGeometry(0.6,0.6,0.3); torso.translate(0,0.75,0);
-  const bhead = new THREE.SphereGeometry(0.22,6,6); bhead.translate(0,1.15,0);
+function createBotBodyGeo() {
+  const torso = new THREE.BoxGeometry(0.6,0.65,0.3); torso.translate(0,0.75,0);
   const armL = new THREE.BoxGeometry(0.12,0.4,0.12); armL.translate(-0.37,0.65,0);
   const armR = new THREE.BoxGeometry(0.12,0.4,0.12); armR.translate(0.37,0.65,0);
   const leg1 = new THREE.BoxGeometry(0.18,0.35,0.18); leg1.translate(-0.15,0.17,0);
   const leg2 = new THREE.BoxGeometry(0.18,0.35,0.18); leg2.translate(0.15,0.17,0);
-  const gun = new THREE.BoxGeometry(0.05,0.05,0.3); gun.translate(0.3,0.7,-0.2);
-  botDummyGeo = mergeGeometries([torso,bhead,armL,armR,leg1,leg2,gun]);
-  return botDummyGeo;
+  const gun = new THREE.BoxGeometry(0.05,0.05,0.35); gun.translate(0.3,0.7,-0.2);
+  return mergeGeometries([torso,armL,armR,leg1,leg2,gun]);
+}
+function createBotHeadGeo() {
+  const h = new THREE.BoxGeometry(0.32,0.28,0.28); h.translate(0,1.18,0);
+  return h;
 }
 
-const BOT_COUNT = 280;
+const BOT_COUNT = 55;
 const botData = [];
 const botMatrix = new THREE.Matrix4();
 const botPos = new THREE.Vector3();
 const botQuat = new THREE.Quaternion();
 const botScale = new THREE.Vector3(1,1,1);
 
-const botMesh = new THREE.InstancedMesh(createBotGeo(), botMat.clone(), BOT_COUNT);
-botMesh.castShadow = true;
-scene.add(botMesh);
+const botBodyMesh = new THREE.InstancedMesh(createBotBodyGeo(), new THREE.MeshStandardMaterial({ color:0x1a1a1a, roughness:0.7, metalness:0.05 }), BOT_COUNT);
+botBodyMesh.castShadow = true;
+scene.add(botBodyMesh);
+const botHeadMesh = new THREE.InstancedMesh(createBotHeadGeo(), new THREE.MeshStandardMaterial({ color:0xeeccaa, roughness:0.4 }), BOT_COUNT);
+botHeadMesh.castShadow = true;
+scene.add(botHeadMesh);
 
 const botHealthMesh = new THREE.InstancedMesh(
   new THREE.PlaneGeometry(0.6,0.06), new THREE.MeshBasicMaterial({ color:0xff4444, side:THREE.DoubleSide, transparent:true }), BOT_COUNT
@@ -479,22 +477,20 @@ const hMatrix = new THREE.Matrix4();
 
 // Place bots in grid
 let bi = 0;
-for (let z = -28; z <= 28; z += 2) {
-  for (let x = -14; x <= 14; x += 2) {
+for (let z = -28; z <= 28; z += 5) {
+  for (let x = -14; x <= 14; x += 5) {
     if (bi >= BOT_COUNT) break;
-    const px = x + (Math.random()-0.5)*0.3;
-    const pz = z + (Math.random()-0.5)*0.3;
+    const px = x + (Math.random()-0.5)*1.5;
+    const pz = z + (Math.random()-0.5)*1.5;
     botData.push({
       pos: new THREE.Vector3(px, 0, pz),
       health: 100, maxHealth: 100,
-      state: 'patrol', speed: 1.5 + Math.random() * 1.5,
-      fireRate: 0.4 + Math.random() * 0.6, lastFire: 0,
+      state: 'patrol',
+      speed: 0.5 + Math.random() * 0.8,
       patrolTarget: new THREE.Vector3(
-        px + (Math.random()-0.5)*8, 0, pz + (Math.random()-0.5)*8
+        px + (Math.random()-0.5)*10, 0, pz + (Math.random()-0.5)*10
       ),
       rot: 0, alive: true, index: bi,
-      shootAcc: 0.7 + Math.random() * 0.2,
-      updateTimer: Math.random() * 100,
     });
     bi++;
   }
@@ -502,29 +498,35 @@ for (let z = -28; z <= 28; z += 2) {
 
 function updateBotInstance(i) {
   const d = botData[i];
+  const hide = new THREE.Matrix4().makeScale(0,0,0);
   if (!d.alive) {
-    botMesh.setMatrixAt(i, new THREE.Matrix4().makeScale(0,0,0));
-    botMesh.instanceMatrix.needsUpdate = true;
-    botHealthMesh.setMatrixAt(i, new THREE.Matrix4().makeScale(0,0,0));
+    botBodyMesh.setMatrixAt(i, hide);
+    botHeadMesh.setMatrixAt(i, hide);
+    botHealthMesh.setMatrixAt(i, hide);
+    botHealthBgMesh.setMatrixAt(i, hide);
+    botBodyMesh.instanceMatrix.needsUpdate = true;
+    botHeadMesh.instanceMatrix.needsUpdate = true;
     botHealthMesh.instanceMatrix.needsUpdate = true;
-    botHealthBgMesh.setMatrixAt(i, new THREE.Matrix4().makeScale(0,0,0));
     botHealthBgMesh.instanceMatrix.needsUpdate = true;
     return;
   }
-  botPos.set(d.pos.x, d.pos.y, d.pos.z);
+  botPos.set(d.pos.x, 0, d.pos.z);
   botQuat.setFromEuler(new THREE.Euler(0, d.rot, 0));
   botMatrix.compose(botPos, botQuat, botScale);
-  botMesh.setMatrixAt(i, botMatrix);
+  botBodyMesh.setMatrixAt(i, botMatrix);
+  botHeadMesh.setMatrixAt(i, botMatrix);
 
   const hp = d.health / d.maxHealth;
-  hVec.set(d.pos.x, d.pos.y + 1.45, d.pos.z);
-  hMatrix.compose(hVec, new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1), camera.position.clone().sub(hVec).normalize()), new THREE.Vector3(0.6, 0.06, 1));
+  hVec.set(d.pos.x, 1.45, d.pos.z);
+  const dirToCam = camera.position.clone().sub(hVec).normalize();
+  hMatrix.compose(hVec, new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1), dirToCam), new THREE.Vector3(0.6, 0.06, 1));
   botHealthBgMesh.setMatrixAt(i, hMatrix);
-  hMatrix.makeScale(hp, 1, 1);
+  hMatrix.makeScale(Math.max(0, hp), 1, 1);
   hMatrix.setPosition(hVec);
   botHealthMesh.setMatrixAt(i, hMatrix);
 
-  botMesh.instanceMatrix.needsUpdate = true;
+  botBodyMesh.instanceMatrix.needsUpdate = true;
+  botHeadMesh.instanceMatrix.needsUpdate = true;
   botHealthMesh.instanceMatrix.needsUpdate = true;
   botHealthBgMesh.instanceMatrix.needsUpdate = true;
 }
@@ -616,14 +618,10 @@ document.addEventListener('wheel', e => {
   }
 });
 
-document.getElementById('respawn-btn').addEventListener('click', respawn);
-
 // ─── GAME STATE ───────────────────────────────────────────────────────────
 let playerHealth = 100;
 let playerShield = 0;
 let elims = 0;
-let dead = false;
-let gameOver = false;
 const playerVel = new THREE.Vector3();
 const playerDir = new THREE.Vector3();
 let onGround = true;
@@ -704,7 +702,6 @@ function showKillPopup() {
 
 // ─── SHOOTING ─────────────────────────────────────────────────────────────
 function shoot() {
-  if (dead) return;
   const wpn = WEAPONS[currentWeapon];
   if (reloading) return;
   if (ammo[currentWeapon] <= 0) { startReload(); return; }
@@ -717,12 +714,31 @@ function shoot() {
 
   if (ammo[currentWeapon] <= 0) setTimeout(() => { if (!reloading) startReload(); }, 200);
 
-  // Muzzle flash
   spawnParticles(new THREE.Vector3(
     playerGroup.position.x + Math.sin(camYaw)*0.6,
     playerGroup.position.y + 0.55,
     playerGroup.position.z + Math.cos(camYaw)*0.6
   ), 0xffaa44, 4);
+
+  function hitBot(botIdx, isHeadshot) {
+    const bot = botData[botIdx];
+    const baseDmg = wpn.dmg * (0.85 + Math.random() * 0.3);
+    const dmg = isHeadshot ? baseDmg * 2.2 : baseDmg;
+    bot.health -= dmg;
+    showHitMarker();
+    const hitY = isHeadshot ? bot.pos.y + 1.3 : bot.pos.y + 0.8;
+    spawnHitParticles(new THREE.Vector3(bot.pos.x, hitY, bot.pos.z));
+    showDamageNumber(new THREE.Vector3(bot.pos.x, bot.pos.y + (isHeadshot ? 1.5 : 1.0), bot.pos.z), Math.round(dmg));
+    if (bot.health <= 0) {
+      bot.alive = false;
+      spawnDeathParticles(bot.pos);
+      elims++;
+      updateElimUI();
+      addKillFeed('#'+(botIdx+1));
+      showKillPopup();
+    }
+    updateBotInstance(botIdx);
+  }
 
   for (let p = 0; p < wpn.pellets; p++) {
     const spreadX = (Math.random()-0.5)*wpn.spread;
@@ -734,157 +750,67 @@ function shoot() {
     ).normalize();
 
     raycaster.set(camera.position, dir);
-    const targets = [botMesh, ...builds];
+
     // Check builds
-    let hitBuild = false;
+    let buildHit = false;
     for (const b of builds) {
       const inter = raycaster.intersectObject(b);
-      if (inter.length > 0) {
-        spawnHitParticles(inter[0].point);
-        hitBuild = true;
-        break;
+      if (inter.length > 0) { spawnHitParticles(inter[0].point); buildHit = true; break; }
+    }
+    if (buildHit) continue;
+
+    // Check bots — raycast against head & body meshes separately
+    let closest = null, closestDist = Infinity, closestHead = false;
+    const dummyMat = new THREE.MeshBasicMaterial({ color:0xffffff });
+    const bodyDummy = new THREE.Mesh(createBotBodyGeo(), dummyMat); bodyDummy.visible = false;
+    const headDummy = new THREE.Mesh(createBotHeadGeo(), dummyMat); headDummy.visible = false;
+    for (let i = 0; i < botData.length; i++) {
+      if (!botData[i].alive) continue;
+      const px = botData[i].pos.x, pz = botData[i].pos.z;
+      bodyDummy.position.set(px, 0, pz);
+      bodyDummy.updateMatrixWorld(true);
+      headDummy.position.set(px, 0, pz);
+      headDummy.updateMatrixWorld(true);
+      const bodyHit = raycaster.intersectObject(bodyDummy);
+      const headHit = raycaster.intersectObject(headDummy);
+      if (headHit.length > 0 && headHit[0].distance < closestDist) {
+        closest = i; closestDist = headHit[0].distance; closestHead = true;
+      }
+      if (bodyHit.length > 0 && bodyHit[0].distance < closestDist) {
+        closest = i; closestDist = bodyHit[0].distance; closestHead = false;
       }
     }
-    if (hitBuild) continue;
-
-    // Check bots via instance raycasting
-    if (botMesh.count > 0) {
-      const inst = new THREE.Mesh(createBotGeo(), botMat);
-      inst.visible = false;
-      let closest = null, closestDist = Infinity;
-      for (let i = 0; i < botData.length; i++) {
-        if (!botData[i].alive) continue;
-        botPos.set(botData[i].pos.x, botData[i].pos.y + 0.7, botData[i].pos.z);
-        inst.position.copy(botPos);
-        inst.rotation.y = 0;
-        inst.updateMatrixWorld(true);
-        const inter = raycaster.intersectObject(inst);
-        if (inter.length > 0 && inter[0].distance < closestDist) {
-          closest = i;
-          closestDist = inter[0].distance;
-        }
-      }
-      if (closest !== null) {
-        const bot = botData[closest];
-        const dmg = wpn.dmg * (0.85 + Math.random() * 0.3);
-        bot.health -= dmg;
-        showHitMarker();
-        spawnHitParticles(new THREE.Vector3(bot.pos.x, bot.pos.y + 0.8, bot.pos.z));
-        showDamageNumber(new THREE.Vector3(bot.pos.x, bot.pos.y + 1.2, bot.pos.z), Math.round(dmg));
-        if (bot.health <= 0) {
-          bot.alive = false;
-          spawnDeathParticles(bot.pos);
-          elims++;
-          updateElimUI();
-          addKillFeed('#'+(closest+1));
-          showKillPopup();
-        }
-        updateBotInstance(closest);
-        break;
-      }
+    if (closest !== null) {
+      hitBot(closest, closestHead);
+      break;
     }
   }
 }
 
 // ─── BOT AI ───────────────────────────────────────────────────────────────
-function updateBots(dt, time) {
-  const playerPos = playerGroup.position;
+function updateBots(dt) {
   for (const bot of botData) {
     if (!bot.alive) continue;
-
-    const dx = playerPos.x - bot.pos.x;
-    const dz = playerPos.z - bot.pos.z;
-    const dist = Math.sqrt(dx*dx + dz*dz);
-
-    if (dist < 18) {
-      bot.state = dist < 12 ? 'attack' : 'chase';
-    } else {
-      bot.state = 'patrol';
+    const pdx = bot.patrolTarget.x - bot.pos.x;
+    const pdz = bot.patrolTarget.z - bot.pos.z;
+    const pdist = Math.sqrt(pdx*pdx + pdz*pdz);
+    if (pdist < 1) {
+      bot.patrolTarget.set(
+        bot.pos.x + (Math.random()-0.5)*12, 0,
+        bot.pos.z + (Math.random()-0.5)*12
+      );
     }
-
-    if (bot.state === 'patrol') {
-      const pdx = bot.patrolTarget.x - bot.pos.x;
-      const pdz = bot.patrolTarget.z - bot.pos.z;
-      const pdist = Math.sqrt(pdx*pdx + pdz*pdz);
-      if (pdist < 0.5) {
-        bot.patrolTarget.set(
-          bot.pos.x + (Math.random()-0.5)*10, 0,
-          bot.pos.z + (Math.random()-0.5)*10
-        );
-      }
-      const ang = Math.atan2(pdx, pdz);
-      bot.rot = ang;
-      bot.pos.x += Math.sin(ang) * bot.speed * dt;
-      bot.pos.z += Math.cos(ang) * bot.speed * dt;
-    } else if (bot.state === 'chase') {
-      const ang = Math.atan2(dx, dz);
-      bot.rot = ang;
-      bot.pos.x += Math.sin(ang) * bot.speed * 1.3 * dt;
-      bot.pos.z += Math.cos(ang) * bot.speed * 1.3 * dt;
-    } else if (bot.state === 'attack') {
-      const ang = Math.atan2(dx, dz);
-      bot.rot = ang;
-      // Strafe slightly
-      bot.pos.x += Math.cos(ang) * bot.speed * 0.3 * dt;
-      bot.pos.z += -Math.sin(ang) * bot.speed * 0.3 * dt;
-      // Shoot at player
-      if (time - bot.lastFire > bot.fireRate) {
-        bot.lastFire = time;
-        if (Math.random() < bot.shootAcc * (1 - dist/15 * 0.3)) {
-          const dmg = 8 + Math.random() * 6;
-          if (playerShield > 0) {
-            const absorbed = Math.min(playerShield, dmg);
-            playerShield -= absorbed;
-            dmg - absorbed;
-          }
-          playerHealth -= dmg;
-          if (playerHealth < 0) playerHealth = 0;
-          updateHealthUI();
-          showDamage(new THREE.Vector3(-dx, 0, -dz));
-          spawnHitParticles(new THREE.Vector3(playerPos.x, playerPos.y + 0.8, playerPos.z));
-          if (playerHealth <= 0 && !dead) die();
-        }
-      }
-    }
-    // Clamp to field
+    const ang = Math.atan2(pdx, pdz);
+    bot.rot = ang;
+    bot.pos.x += Math.sin(ang) * bot.speed * dt;
+    bot.pos.z += Math.cos(ang) * bot.speed * dt;
     bot.pos.x = Math.max(-48, Math.min(48, bot.pos.x));
     bot.pos.z = Math.max(-48, Math.min(48, bot.pos.z));
     updateBotInstance(bot.index);
   }
 }
 
-function die() {
-  dead = true;
-  gameOver = true;
-  document.getElementById('game-over').style.display = 'flex';
-  document.getElementById('end-title').textContent = 'DEFEATED';
-  document.getElementById('end-stats').textContent = `Eliminations: ${elims}`;
-  document.exitPointerLock();
-}
-
-function respawn() {
-  dead = false; gameOver = false;
-  playerHealth = 100; playerShield = 0;
-  playerGroup.position.set(0,0,-38);
-  playerVel.set(0,0,0);
-  updateHealthUI();
-  document.getElementById('game-over').style.display = 'none';
-  ammo = [30,8,35]; reloading = false;
-  reloadTimer = 0;
-  document.getElementById('reload-text').style.display = 'none';
-  updateAmmoUI();
-  blocker.style.display = 'flex';
-  blocker.querySelector('p').textContent = 'Click to Respawn';
-  // Respawn some bots
-  let respawned = 0;
-  for (const bot of botData) {
-    if (!bot.alive && Math.random() < 0.6) { bot.alive = true; bot.health = 100; respawned++; }
-  }
-  if (respawned === 0) {
-    for (const bot of botData) { if (!bot.alive) { bot.alive = true; bot.health = 100; break; } }
-  }
-  for (let i=0;i<botData.length;i++) updateBotInstance(i);
-}
+// No death — this is a practice range
 
 // ─── GAME LOOP ────────────────────────────────────────────────────────────
 let lastTime = 0;
@@ -903,7 +829,7 @@ function tick(time) {
   const dt = Math.min((time - lastTime)/1000, 0.05);
   lastTime = time;
 
-  if (locked && !dead) {
+  if (locked) {
     // Reload timer
     if (reloading) {
       reloadTimer -= dt;
@@ -985,25 +911,10 @@ function tick(time) {
     const camZ = playerGroup.position.z + camDist * Math.cos(camYaw) * Math.cos(camPitch);
     camera.position.set(camX, camY, camZ);
     camera.lookAt(playerGroup.position.x, playerGroup.position.y + 1, playerGroup.position.z);
-
-    // Update bot health bars to face camera
-    for (let i = 0; i < botData.length; i++) {
-      if (!botData[i].alive) continue;
-      hVec.set(botData[i].pos.x, botData[i].pos.y + 1.45, botData[i].pos.z);
-      const dirToCam = camera.position.clone().sub(hVec).normalize();
-      hMatrix.compose(hVec, new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1), dirToCam), new THREE.Vector3(0.6, 0.06, 1));
-      botHealthBgMesh.setMatrixAt(i, hMatrix);
-      const hp = botData[i].health / botData[i].maxHealth;
-      hMatrix.makeScale(Math.max(0, hp), 1, 1);
-      hMatrix.setPosition(hVec);
-      botHealthMesh.setMatrixAt(i, hMatrix);
-    }
-    botHealthBgMesh.instanceMatrix.needsUpdate = true;
-    botHealthMesh.instanceMatrix.needsUpdate = true;
   }
 
   // Update bots
-  updateBots(dt, time/1000);
+  updateBots(dt);
 
   // Update particles
   updateParticles(dt);
