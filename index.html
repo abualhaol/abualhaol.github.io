@@ -1,363 +1,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmad Abu Alhaol</title>
-    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --border: #334155;
-            --text: #f1f5f9;
-            --muted: #94a3b8;
-            --accent: #38bdf8;
-            --accent-dim: rgba(56, 189, 248, 0.1);
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-        }
-        #particles {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-        .content { position: relative; z-index: 1; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahmad Abu Alhaol ⚡</title>
+<link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a1a;
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  #stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .content { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-        .glow {
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.08), 0 0 60px rgba(56, 189, 248, 0.03);
-        }
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-        .tag {
-            display: inline-block;
-            padding: 0.125rem 0.625rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border-radius: 9999px;
-            background: var(--accent-dim);
-            color: var(--accent);
-            border: 1px solid rgba(56, 189, 248, 0.15);
-        }
-        .section-title {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-        }
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 1.25rem;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .card:hover {
+    border-color: rgba(124,58,237,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(80,40,160,0.25);
+  }
 
-        .fab {
-            position: fixed;
-            width: 48px;
-            height: 48px;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--accent);
-            color: #0f172a;
-            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            z-index: 100;
-        }
-        .fab:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(56, 189, 248, 0.5); }
-        .fab-top { top: 1.25rem; right: 1.25rem; }
-    </style>
+  .tag {
+    display: inline-block;
+    padding: 0.15rem 0.65rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: 9999px;
+    background: rgba(124,58,237,0.12);
+    color: #a78bfa;
+    border: 1px solid rgba(124,58,237,0.2);
+  }
+
+  .section-header {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #7c3aed;
+    margin-bottom: 1.25rem;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(124,58,237,0.3), 0 0 60px rgba(124,58,237,0.1);
+  }
+  .glow-purple {
+    box-shadow: 0 0 30px rgba(80,40,160,0.2);
+  }
+
+  .stat {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  }
+  .stat:hover {
+    border-color: rgba(124,58,237,0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(80,40,160,0.25);
+  }
+  .stat-num { font-size: 1.75rem; font-weight: 800; color: #a78bfa; }
+  .stat-label { font-size: 0.7rem; color: #888; margin-top: 0.25rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  a { color: #a78bfa; text-decoration: none; }
+  a:hover { color: #c4b5fd; }
+
+  hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 2.5rem 0; }
+
+  .header-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    font-size: 0.82rem;
+    color: #888;
+    margin-top: 0.5rem;
+  }
+  .header-line svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .header-line a, .header-line span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(124,58,237,0.15);
+    color: #a78bfa;
+    border: 1px solid rgba(124,58,237,0.2);
+    margin-bottom: 1rem;
+  }
+</style>
 </head>
 <body>
 
-<canvas id="particles"></canvas>
+<canvas id="stars"></canvas>
 
-<div class="content max-w-3xl mx-auto px-6 py-16 md:py-24">
+<div class="content">
 
-    <!-- Header -->
-    <header class="mb-16">
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
-            Ahmad <span class="text-[var(--accent)]">Abu Alhaol</span>
-        </h1>
-        <p class="text-lg text-[var(--muted)] mb-4 max-w-xl">
-            AI Technical Lead &amp; System Architect
+  <!-- Header -->
+  <header style="margin-bottom: 3rem;">
+    <div class="badge">AI Technical Lead &amp; System Architect</div>
+    <h1 style="font-size: 2.8rem; font-weight: 900; letter-spacing: -0.03em; line-height: 1.1; color: #fff; margin-bottom: 0.75rem;">
+      Ahmad <span style="color: #a78bfa; text-shadow: 0 0 20px rgba(124,58,237,0.4);">Abu Alhaol</span>
+    </h1>
+    <div class="header-line">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        Ottawa, Canada
+      </span>
+      <a href="mailto:ahmad@abualhaol.dev">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        ahmad@abualhaol.dev
+      </a>
+      <a href="https://linkedin.com/in/abualhaol" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/abualhaol" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+        GitHub
+      </a>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section style="margin-bottom: 3rem;">
+    <h2 class="section-header">About</h2>
+    <p style="color: #94a3b8; line-height: 1.75; font-size: 1.05rem;">
+      AI Technical Lead and System Architect bridging academic research and industrial-scale deployment. 
+      Deep expertise in architecting <strong style="color:#c4b5fd;">Agentic AI</strong> systems, intelligent edge platforms, 
+      and advanced cybersecurity solutions. Passionate about building resilient, ethical AI systems 
+      and leading high-performing engineering teams from concept to production.
+    </p>
+  </section>
+
+  <!-- Experience -->
+  <section style="margin-bottom: 3rem;">
+    <h2 class="section-header">Experience</h2>
+    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">AI Technical Lead</h3>
+          <span style="font-size: 0.75rem; color: #666;">2022 &ndash; Present</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #777; margin-bottom: 0.5rem;">Dell Technologies &middot; Ottawa, Canada</p>
+        <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+          Spearheading Multi-modal Agentic AI benchmarking. Architecting zero-touch automation 
+          through GNN-based Digital Twins and Knowledge Graphs for 5G/6G O-RAN optimization.
         </p>
-        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--muted)]">
-            <span class="flex items-center gap-1.5">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                Ottawa, Canada
-            </span>
-            <a href="mailto:ahmad@example.com" class="flex items-center gap-1.5 hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                ahmad@abualhaol.dev
-            </a>
-            <a href="https://linkedin.com/in/abualhaol" target="_blank" rel="noopener" class="flex items-center gap-1.5 hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                LinkedIn
-            </a>
-            <a href="https://github.com/abualhaol" target="_blank" rel="noopener" class="flex items-center gap-1.5 hover:text-white transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                GitHub
-            </a>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem;">
+          <span class="tag">AI</span>
+          <span class="tag">System Design</span>
+          <span class="tag">Research</span>
         </div>
-    </header>
-
-    <!-- Summary -->
-    <section class="mb-16">
-        <h2 class="section-title">About</h2>
-        <p class="text-[var(--muted)] leading-relaxed text-base md:text-lg">
-            AI Technical Lead and System Architect with deep expertise in architecting Agentic AI systems, 
-            intelligent edge platforms, and advanced cybersecurity solutions. Proven track record bridging 
-            academic research and industrial-scale deployment — from patented innovations to production-grade 
-            ML pipelines. Passionate about building resilient, ethical AI systems and leading high-performing 
-            engineering teams.
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Assistant Professor &mdash; Data Science</h3>
+          <span style="font-size: 0.75rem; color: #666;">2020 &ndash; 2022</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #777; margin-bottom: 0.5rem;">Princess Sumaya University for Technology &middot; Amman, Jordan</p>
+        <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+          Founded the Data Science department; designed industry-aligned BSc/MSc curricula and 
+          forged strategic partnerships. Contributed to the Jordan National AI Ethics Charter.
         </p>
-    </section>
-
-    <!-- Experience -->
-    <section class="mb-16">
-        <h2 class="section-title">Experience</h2>
-        <div class="space-y-4">
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
-                    <h3 class="font-semibold text-base">AI Technical Lead</h3>
-                    <span class="text-xs text-[var(--muted)]">2022 &ndash; Present</span>
-                </div>
-                <p class="text-sm text-[var(--muted)] mb-2">Dell Technologies &middot; Ottawa, Canada</p>
-                <p class="text-sm text-[var(--muted)] leading-relaxed">
-                    Spearheading Multi-modal Agentic AI benchmarking. Architecting zero-touch automation 
-                    through GNN-based Digital Twins and Knowledge Graphs for 5G/6G O-RAN optimization.
-                </p>
-                <div class="flex flex-wrap gap-1.5 mt-3">
-                    <span class="tag">AI</span>
-                    <span class="tag">System Design</span>
-                    <span class="tag">Research</span>
-                </div>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
-                    <h3 class="font-semibold text-base">Assistant Professor &mdash; Data Science</h3>
-                    <span class="text-xs text-[var(--muted)]">2020 &ndash; 2022</span>
-                </div>
-                <p class="text-sm text-[var(--muted)] mb-2">Princess Sumaya University for Technology &middot; Amman, Jordan</p>
-                <p class="text-sm text-[var(--muted)] leading-relaxed">
-                    Founded the Data Science department; designed industry-aligned BSc/MSc curricula and 
-                    forged strategic partnerships. Contributed to the Jordan National AI Ethics Charter.
-                </p>
-                <div class="flex flex-wrap gap-1.5 mt-3">
-                    <span class="tag">AI</span>
-                    <span class="tag">Education</span>
-                    <span class="tag">Leadership</span>
-                </div>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
-                    <h3 class="font-semibold text-base">Principal Data Scientist</h3>
-                    <span class="text-xs text-[var(--muted)]">2019 &ndash; 2020</span>
-                </div>
-                <p class="text-sm text-[var(--muted)] mb-2">Huawei Technologies &middot; Ottawa, Canada</p>
-                <p class="text-sm text-[var(--muted)] leading-relaxed">
-                    Technical lead for AI-driven cybersecurity. Architected adaptive Deep Learning 
-                    frameworks for real-time threat detection against zero-day attacks.
-                </p>
-                <div class="flex flex-wrap gap-1.5 mt-3">
-                    <span class="tag">AI</span>
-                    <span class="tag">Security</span>
-                    <span class="tag">Deep Learning</span>
-                </div>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
-                    <h3 class="font-semibold text-base">Senior Data Scientist</h3>
-                    <span class="text-xs text-[var(--muted)]">2017 &ndash; 2019</span>
-                </div>
-                <p class="text-sm text-[var(--muted)] mb-2">Larus Technologies &middot; Ottawa, Canada</p>
-                <p class="text-sm text-[var(--muted)] leading-relaxed">
-                    Designed scalable Decision Support Systems (DSS) and predictive analytics 
-                    models for logistics optimization and stakeholder-driven requirements.
-                </p>
-                <div class="flex flex-wrap gap-1.5 mt-3">
-                    <span class="tag">AI</span>
-                    <span class="tag">System Design</span>
-                    <span class="tag">Data Pipelines</span>
-                </div>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
-                    <h3 class="font-semibold text-base">Cybersecurity Research Scientist</h3>
-                    <span class="text-xs text-[var(--muted)]">2014 &ndash; 2017</span>
-                </div>
-                <p class="text-sm text-[var(--muted)] mb-2">VENUS Cybersecurity / Carleton University &middot; Ottawa, Canada</p>
-                <p class="text-sm text-[var(--muted)] leading-relaxed">
-                    Led R&D on real-time anomaly detection for large-scale networks. Designed ML models 
-                    to detect IP Prefix Hijacking and DDoS attacks.
-                </p>
-                <div class="flex flex-wrap gap-1.5 mt-3">
-                    <span class="tag">Security</span>
-                    <span class="tag">Research</span>
-                    <span class="tag">ML</span>
-                </div>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1.5">
-                    <h3 class="font-semibold text-base">Wireless System Engineer</h3>
-                    <span class="text-xs text-[var(--muted)]">2008 &ndash; 2009</span>
-                </div>
-                <p class="text-sm text-[var(--muted)] mb-2">Broadcom Corporation &middot; San Diego, USA</p>
-                <p class="text-sm text-[var(--muted)] leading-relaxed">
-                    System-level analysis and optimization of 3G/4G wireless core components. 
-                    Validated RF/RX front-end performance for production chipsets.
-                </p>
-                <div class="flex flex-wrap gap-1.5 mt-3">
-                    <span class="tag">Wireless</span>
-                    <span class="tag">System Design</span>
-                    <span class="tag">RF</span>
-                </div>
-            </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem;">
+          <span class="tag">AI</span>
+          <span class="tag">Education</span>
+          <span class="tag">Leadership</span>
         </div>
-    </section>
-
-    <!-- Education -->
-    <section class="mb-16">
-        <h2 class="section-title">Education</h2>
-        <div class="space-y-4">
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
-                    <h3 class="font-semibold">PhD in Electrical &amp; Computer Engineering</h3>
-                    <span class="text-xs text-[var(--muted)]">2005 &ndash; 2008</span>
-                </div>
-                <p class="text-sm text-[var(--muted)]">University of Mississippi, USA &middot; GPA: 4.0/4.0</p>
-                <p class="text-sm text-[var(--muted)] mt-1">Sigma Xi &amp; Phi Kappa Phi Honor Societies. Research in MIMO-OFDM wireless systems.</p>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
-                    <h3 class="font-semibold">MEng in Technology Innovation Management</h3>
-                    <span class="text-xs text-[var(--muted)]">2014 &ndash; 2015</span>
-                </div>
-                <p class="text-sm text-[var(--muted)]">Carleton University, Canada &middot; GPA: 11.0/12.0</p>
-                <p class="text-sm text-[var(--muted)] mt-1">Specialized in Cybersecurity Architecture and Technology Management.</p>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
-                    <h3 class="font-semibold">MSc in Electrical Engineering</h3>
-                    <span class="text-xs text-[var(--muted)]">2002 &ndash; 2004</span>
-                </div>
-                <p class="text-sm text-[var(--muted)]">Jordan University of Science &amp; Technology &middot; GPA: 84.4/100</p>
-            </div>
-            <div class="card p-5">
-                <div class="flex flex-wrap items-baseline justify-between gap-1 mb-1">
-                    <h3 class="font-semibold">BSc in Electrical Engineering</h3>
-                    <span class="text-xs text-[var(--muted)]">1995 &ndash; 2000</span>
-                </div>
-                <p class="text-sm text-[var(--muted)]">Jordan University of Science &amp; Technology</p>
-            </div>
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Principal Data Scientist</h3>
+          <span style="font-size: 0.75rem; color: #666;">2019 &ndash; 2020</span>
         </div>
-    </section>
-
-    <!-- Metrics -->
-    <section class="mb-16">
-        <h2 class="section-title">Impact</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="card p-5 text-center">
-                <p class="text-2xl font-bold text-[var(--accent)]">1K+</p>
-                <p class="text-xs text-[var(--muted)] mt-1">Citations</p>
-            </div>
-            <div class="card p-5 text-center">
-                <p class="text-2xl font-bold text-[var(--accent)]">42+</p>
-                <p class="text-xs text-[var(--muted)] mt-1">Patents</p>
-            </div>
-            <div class="card p-5 text-center">
-                <p class="text-2xl font-bold text-[var(--accent)]">40+</p>
-                <p class="text-xs text-[var(--muted)] mt-1">Conferences</p>
-            </div>
-            <div class="card p-5 text-center">
-                <p class="text-2xl font-bold text-[var(--accent)]">14+</p>
-                <p class="text-xs text-[var(--muted)] mt-1">Journals</p>
-            </div>
+        <p style="font-size: 0.82rem; color: #777; margin-bottom: 0.5rem;">Huawei Technologies &middot; Ottawa, Canada</p>
+        <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+          Technical lead for AI-driven cybersecurity. Architected adaptive Deep Learning 
+          frameworks for real-time threat detection against zero-day attacks.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem;">
+          <span class="tag">AI</span>
+          <span class="tag">Security</span>
+          <span class="tag">Deep Learning</span>
         </div>
-    </section>
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Senior Data Scientist</h3>
+          <span style="font-size: 0.75rem; color: #666;">2017 &ndash; 2019</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #777; margin-bottom: 0.5rem;">Larus Technologies &middot; Ottawa, Canada</p>
+        <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+          Designed scalable Decision Support Systems (DSS) and predictive analytics 
+          models for logistics optimization and stakeholder-driven requirements.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem;">
+          <span class="tag">AI</span>
+          <span class="tag">System Design</span>
+          <span class="tag">Data Pipelines</span>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Cybersecurity Research Scientist</h3>
+          <span style="font-size: 0.75rem; color: #666;">2014 &ndash; 2017</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #777; margin-bottom: 0.5rem;">VENUS Cybersecurity / Carleton University &middot; Ottawa, Canada</p>
+        <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+          Led R&amp;D on real-time anomaly detection for large-scale networks. Designed ML models 
+          to detect IP Prefix Hijacking and DDoS attacks.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem;">
+          <span class="tag">Security</span>
+          <span class="tag">Research</span>
+          <span class="tag">ML</span>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.25rem;">
+          <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Wireless System Engineer</h3>
+          <span style="font-size: 0.75rem; color: #666;">2008 &ndash; 2009</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #777; margin-bottom: 0.5rem;">Broadcom Corporation &middot; San Diego, USA</p>
+        <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.6;">
+          System-level analysis and optimization of 3G/4G wireless core components. 
+          Validated RF/RX front-end performance for production chipsets.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem;">
+          <span class="tag">Wireless</span>
+          <span class="tag">System Design</span>
+          <span class="tag">RF</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="border-t border-[var(--border)] pt-8 text-center text-sm text-[var(--muted)]">
-        <p>&copy; 2026 Ahmad Abu Alhaol. All rights reserved.</p>
-    </footer>
+  <!-- Education -->
+  <section style="margin-bottom: 3rem;">
+    <h2 class="section-header">Education</h2>
+    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.15rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: #fff;">PhD in Electrical &amp; Computer Engineering</h3>
+          <span style="font-size: 0.75rem; color: #666;">2005 &ndash; 2008</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #666;">University of Mississippi, USA &middot; GPA: 4.0/4.0</p>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.25rem;">Sigma Xi &amp; Phi Kappa Phi Honor Societies.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.15rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: #fff;">MEng in Technology Innovation Management</h3>
+          <span style="font-size: 0.75rem; color: #666;">2014 &ndash; 2015</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #666;">Carleton University, Canada &middot; GPA: 11.0/12.0</p>
+        <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 0.25rem;">Specialized in Cybersecurity Architecture and Technology Management.</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.15rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: #fff;">MSc in Electrical Engineering</h3>
+          <span style="font-size: 0.75rem; color: #666;">2002 &ndash; 2004</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #666;">Jordan University of Science &amp; Technology &middot; GPA: 84.4/100</p>
+      </div>
+      <div class="card">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.25rem; margin-bottom: 0.15rem;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; color: #fff;">BSc in Electrical Engineering</h3>
+          <span style="font-size: 0.75rem; color: #666;">1995 &ndash; 2000</span>
+        </div>
+        <p style="font-size: 0.82rem; color: #666;">Jordan University of Science &amp; Technology</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <section style="margin-bottom: 3rem;">
+    <h2 class="section-header">Impact</h2>
+    <div style="display: grid; grid-template-columns: repeat(4,1fr); gap: 0.75rem;">
+      <div class="stat"><div class="stat-num">1K+</div><div class="stat-label">Citations</div></div>
+      <div class="stat"><div class="stat-num">42+</div><div class="stat-label">Patents</div></div>
+      <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Conferences</div></div>
+      <div class="stat"><div class="stat-num">14+</div><div class="stat-label">Journals</div></div>
+    </div>
+  </section>
+
+  <hr>
+
+  <footer style="text-align: center;">
+    <p style="font-size: 0.75rem; color: #555; letter-spacing: 0.08em;">&copy; 2026 Ahmad Abu Alhaol</p>
+  </footer>
 
 </div>
 
 <script>
-    (function() {
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        let w, h, particles = [];
+(function() {
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  let w, h;
 
-        function resize() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
+  function resize() { w = c.width = innerWidth; h = c.height = innerHeight; }
+  addEventListener('resize', resize);
+  resize();
 
-        const count = 80;
-        for (let i = 0; i < count; i++) {
-            particles.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                vx: (Math.random() - 0.5) * 0.5,
-                vy: (Math.random() - 0.5) * 0.5,
-                r: Math.random() * 2 + 1,
-            });
-        }
+  const stars = Array.from({length: 140}, () => ({
+    x: Math.random() * w, y: Math.random() * h,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 1.8 + 0.5,
+    a: Math.random() * 0.6 + 0.2
+  }));
 
-        function draw() {
-            ctx.clearRect(0, 0, w, h);
-            ctx.fillStyle = 'rgba(56, 189, 248, 0.6)';
-            for (const p of particles) {
-                p.x += p.vx;
-                p.y += p.vy;
-                if (p.x < 0) p.x = w;
-                if (p.x > w) p.x = 0;
-                if (p.y < 0) p.y = h;
-                if (p.y > h) p.y = 0;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            ctx.strokeStyle = 'rgba(56, 189, 248, 0.1)';
-            ctx.lineWidth = 0.5;
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 150) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(draw);
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const s of stars) {
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h; if (s.y > h) s.y = 0;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(167,139,250,${s.a})`;
+      ctx.fill();
+    }
+    ctx.strokeStyle = 'rgba(124,58,237,0.06)';
+    ctx.lineWidth = 0.4;
+    for (let i = 0; i < stars.length; i++) {
+      for (let j = i + 1; j < stars.length; j++) {
+        const dx = stars[i].x - stars[j].x, dy = stars[i].y - stars[j].y;
+        if (Math.sqrt(dx * dx + dy * dy) < 120) {
+          ctx.beginPath();
+          ctx.moveTo(stars[i].x, stars[i].y);
+          ctx.lineTo(stars[j].x, stars[j].y);
+          ctx.stroke();
         }
-        draw();
-    })();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
 </script>
 </body>
 </html>
