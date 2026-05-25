@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canada Tax Maximizer Portal - Ontario</title>
+    <link rel="icon" type="image/png" href="../../assets/ibrahim-image-circle.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        app: {
+                            base:      '#0f172a',
+                            dark:      '#020617',
+                            card:      'rgba(30, 41, 59, 0.7)',
+                            gold:      '#fbbf24',
+                            goldGlow:  '#f59e0b',
+                            accent:    '#10b981',
+                            text:      '#f1f5f9'
+                        }
+                    },
+                    fontFamily: {
+                        'sans':   ['"Inter"', 'sans-serif'],
+                        'nunito': ['"Nunito"', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in':   'fadeIn 0.6s ease-out',
+                        'glow':      'glow 2s ease-in-out infinite alternate'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%':   { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        glow: {
+                            '0%':   { boxShadow: '0 0 5px #fbbf24' },
+                            '100%': { boxShadow: '0 0 20px #fbbf24, 0 0 10px #fbbf24' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { background-color: #020617; }
+        body {
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 70%);
+            color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        .hidden-section { display: none !important; }
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        .tap-area {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+        .tap-area:active { transform: scale(0.99); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .gold-gradient { background: linear-gradient(to right, #fbbf24, #fcd34d); }
+        .emerald-gradient { background: linear-gradient(135deg, #10b981, #059669); }
+
+        .input-field {
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid #475569;
+            color: #f1f5f9;
+            padding: 11px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            width: 100%;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+        .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #fbbf24;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white; padding: 12px 22px; border-radius: 11px;
+            font-weight: 600; border: none; cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.3);
+        }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-secondary {
+            background-color: #1e293b; color: #f1f5f9;
+            padding: 10px 18px; border-radius: 10px;
+            font-weight: 500; border: 1px solid #475569;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: #334155; border-color: #64748b;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #020617; padding: 11px 20px; border-radius: 10px;
+            font-weight: 700; border: none; cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(251, 191, 36, 0.3);
+        }
+
+        .tab-btn {
+            padding: 10px 16px; border-radius: 9px;
+            font-size: 13px; font-weight: 600;
+            background-color: rgba(30, 41, 59, 0.4);
+            color: #cbd5e1; border: 1px solid transparent;
+            cursor: pointer; transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { background-color: rgba(30, 41, 59, 0.7); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(16, 185, 129, 0.1));
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.3);
+        }
+
+        .accordion-header {
+            cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 16px;
+            background-color: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            transition: all 0.3s;
+            user-select: none;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .accordion-header:hover {
+            background-color: rgba(30, 41, 59, 0.8);
+            border-color: rgba(251, 191, 36, 0.2);
+        }
+        .accordion-content {
+            display: none;
+            padding: 16px;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-radius: 0 0 10px 10px;
+            margin-top: -1px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-top: none;
+        }
+        .accordion-content.active { display: block; }
+
+        .credit-row {
+            display: flex; justify-content: space-between;
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+        }
+        .credit-row:last-child { border-bottom: none; }
+        .credit-label { color: #cbd5e1; }
+        .credit-amount { color: #10b981; font-weight: 600; }
+
+        .strategy-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-left: 4px solid #10b981;
+            padding: 14px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .strategy-card.priority-high {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(245, 158, 11, 0.05));
+            border-left-color: #fbbf24;
+        }
+        .strategy-card.priority-medium {
+            background: rgba(16, 185, 129, 0.1);
+            border-left-color: #10b981;
+        }
+        .strategy-card.priority-low {
+            background: rgba(30, 41, 59, 0.5);
+            border-left-color: #64748b;
+        }
+
+        .strategy-title {
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .strategy-savings {
+            font-weight: 700;
+            color: #fbbf24;
+            margin-left: auto;
+        }
+        .strategy-desc {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.6);
+            padding: 14px;
+            border-radius: 11px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fbbf24;
+            margin-bottom: 4px;
+            font-family: 'Nunito', sans-serif;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .checklist-item {
+            display: flex; align-items: center;
+            padding: 12px 14px;
+            background: rgba(30, 41, 59, 0.5);
+            margin-bottom: 8px;
+            border-radius: 9px;
+            font-size: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .checklist-checkbox {
+            width: 20px; height: 20px;
+            border: 2px solid #475569;
+            border-radius: 5px;
+            margin-right: 12px;
+            cursor: pointer;
+            flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .checklist-checkbox.checked {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+        .checklist-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .container-card { width: 100%; max-width: 880px; margin: 0 auto; }
+
+        .section-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 22px 0;
+        }
+
+        .header-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 16px rgba(251, 191, 36, 0.2);
+        }
+        .header-icon svg {
+            width: 32px; height: 32px;
+            color: #020617;
+        }
+
+        .education-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 16px;
+            border-radius: 11px;
+            margin-bottom: 12px;
+        }
+        .education-card h4 {
+            color: #fbbf24;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 15px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .education-card p {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .education-card .key-point {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 3px solid #10b981;
+            padding: 8px 12px;
+            margin-top: 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #d1fae5;
+        }
+        .education-card .warning {
+            background: rgba(251, 191, 36, 0.08);
+            border-left: 3px solid #fbbf24;
+            padding: 8px 12px;
+            margin-top: 8px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #fef3c7;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .badge-gold { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+        .badge-slate { background: rgba(100, 116, 139, 0.2); color: #cbd5e1; }
+
+        .tab-bar {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            scrollbar-width: thin;
+        }
+
+        .grid-stocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .json-preview {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 16px;
+            color: #94a3b8;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .progress-dots {
+            display: flex; gap: 8px; justify-content: center;
+            margin-bottom: 20px;
+        }
+        .progress-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+        }
+        .progress-dot.active {
+            background: #fbbf24;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+        .progress-dot.complete { background: #10b981; }
+
+        @media (max-width: 640px) {
+            .grid-cols-2-mobile { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loginView" class="container-card glass-panel p-8 rounded-2xl fade-in" style="max-width: 440px;">
+        <div class="flex justify-center mb-6">
+            <div class="w-16 h-16 rounded-full border-2 border-app-accent flex items-center justify-center">
+                <svg class="w-8 h-8 text-app-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+            </div>
+        </div>
+        <h2 class="text-2xl font-bold text-center mb-2 text-app-gold">Tax Maximizer Portal</h2>
+        <p class="text-slate-500 uppercase tracking-widest text-center text-xs mb-8">Ontario · Canada · 2024</p>
+
+        <div class="space-y-4 mb-6">
+            <div>
+                <label class="label">Username</label>
+                <input type="text" id="usernameInput" placeholder="username" class="input-field">
+            </div>
+            <div>
+                <label class="label">Password</label>
+                <input type="password" id="passwordInput" placeholder="password" class="input-field">
+            </div>
+        </div>
+        <p id="loginError" class="hidden text-red-400 text-sm mb-4 text-center"></p>
+        <button onclick="attemptLogin()" class="w-full btn-primary">
+            <span>Enter Portal</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+        </button>
+    </div>
+
+    <div id="appContainer" class="hidden-section container-card">
+        <div class="mb-6">
+            <div class="flex items-center gap-4 mb-3">
+                <div class="header-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3V3zm6 14V9m4 8v-5m4 5v-3"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-3xl font-bold gold-gradient bg-clip-text text-transparent" style="font-family: 'Nunito', sans-serif;">Tax Maximizer Portal</h1>
+                    <p class="text-slate-400 text-sm">Ontario Employee · Married · Stock Compensation · Capital Gains</p>
+                </div>
+            </div>
+            <div class="tab-bar">
+                <button class="tab-btn active" data-view="learnView" onclick="navigateTo('learnView')">Learn</button>
+                <button class="tab-btn" data-view="profileView" onclick="navigateTo('profileView')">Profile</button>
+                <button class="tab-btn" data-view="employmentView" onclick="navigateTo('employmentView')">Employment</button>
+                <button class="tab-btn" data-view="stocksView" onclick="navigateTo('stocksView')">Stocks & Capital Gains</button>
+                <button class="tab-btn" data-view="deductionsView" onclick="navigateTo('deductionsView')">Deductions</button>
+                <button class="tab-btn" data-view="resultsView" onclick="navigateTo('resultsView')">Results</button>
+                <button class="tab-btn" data-view="strategyView" onclick="navigateTo('strategyView')">Strategy</button>
+                <button class="tab-btn" data-view="exportView" onclick="navigateTo('exportView')">Export</button>
+            </div>
+        </div>
+
+        <!-- LEARN VIEW -->
+        <div id="learnView" class="glass-panel p-6 rounded-2xl fade-in space-y-4">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Tax Education Hub</h2>
+                <span class="badge badge-emerald">Read first</span>
+            </div>
+            <p class="text-slate-400 text-sm mb-4">Understand how your money is taxed in Ontario. Each module explains a key concept with actionable insights.</p>
+
+            <div id="learnAccordion"></div>
+        </div>
+
+        <!-- PROFILE VIEW -->
+        <div id="profileView" class="hidden-section glass-panel p-6 rounded-2xl fade-in space-y-5">
+            <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Your Family Profile</h2>
+            <p class="text-slate-400 text-sm">Tell us about your household so we can recommend the optimal strategies.</p>
+
+            <div>
+                <label class="label">Your Age</label>
+                <input type="number" id="yourAge" class="input-field" min="18" max="100" value="35">
+            </div>
+            <div>
+                <label class="label">Spouse Age</label>
+                <input type="number" id="spouseAge" class="input-field" min="18" max="100" value="35">
+            </div>
+            <div class="grid grid-cols-2 gap-4 grid-cols-2-mobile" style="display: grid;">
+                <div>
+                    <label class="label">Children Under 7</label>
+                    <input type="number" id="childrenUnder7" class="input-field" min="0" value="0">
+                </div>
+                <div>
+                    <label class="label">Children 7-17</label>
+                    <input type="number" id="children7to16" class="input-field" min="0" value="0">
+                </div>
+            </div>
+            <div>
+                <label class="label">First-Time Home Buyer? (FHSA Eligibility)</label>
+                <select id="firstTimeBuyer" class="input-field">
+                    <option value="no">No - Already own home</option>
+                    <option value="yes">Yes - Eligible for FHSA</option>
+                </select>
+            </div>
+            <div>
+                <label class="label">Are You The Primary (Higher) Earner?</label>
+                <select id="primaryEarner" class="input-field">
+                    <option value="yes">Yes - I earn more</option>
+                    <option value="no">No - Spouse earns more</option>
+                    <option value="similar">Similar incomes</option>
+                </select>
+            </div>
+            <button onclick="navigateTo('employmentView')" class="w-full btn-primary">Continue: Employment Income →</button>
+        </div>
+
+        <!-- EMPLOYMENT VIEW -->
+        <div id="employmentView" class="hidden-section glass-panel p-6 rounded-2xl fade-in space-y-5">
+            <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Employment & T4 Income</h2>
+
+            <div>
+                <label class="label">Your Annual T4 Salary ($)</label>
+                <input type="number" id="yourIncome" class="input-field" min="0" value="120000">
+            </div>
+            <div>
+                <label class="label">Spouse Annual T4 Salary ($)</label>
+                <input type="number" id="spouseIncome" class="input-field" min="0" value="60000">
+            </div>
+            <div>
+                <label class="label">Your CPP Contributions Already Withheld ($)</label>
+                <input type="number" id="cppContribution" class="input-field" min="0" value="3867">
+                <p class="text-xs text-slate-500 mt-1">2024 max: $3,867.50 (CPP1) + $188 (CPP2)</p>
+            </div>
+            <div>
+                <label class="label">Your EI Premiums Already Withheld ($)</label>
+                <input type="number" id="eiContribution" class="input-field" min="0" value="1049">
+                <p class="text-xs text-slate-500 mt-1">2024 max: $1,049.12</p>
+            </div>
+            <div>
+                <label class="label">Pension Contributions (RPP) ($)</label>
+                <input type="number" id="rppContribution" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">Reduces your RRSP room (Pension Adjustment)</p>
+            </div>
+            <div>
+                <label class="label">Income Tax Already Withheld ($)</label>
+                <input type="number" id="taxWithheld" class="input-field" min="0" value="25000">
+            </div>
+            <div class="flex gap-3">
+                <button onclick="navigateTo('profileView')" class="btn-secondary">← Back</button>
+                <button onclick="navigateTo('stocksView')" class="btn-primary flex-1">Continue: Stocks →</button>
+            </div>
+        </div>
+
+        <!-- STOCKS VIEW -->
+        <div id="stocksView" class="hidden-section glass-panel p-6 rounded-2xl fade-in space-y-5">
+            <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Stock Compensation & Capital Gains</h2>
+            <p class="text-slate-400 text-sm">Employer stock awards and investment gains have unique tax rules. Track them carefully.</p>
+
+            <div class="education-card">
+                <h4>How Stock Compensation Is Taxed</h4>
+                <p><strong>RSUs / Stock Awards (Public Co.):</strong> Taxed as employment income at vest. Full FMV added to T4 box 14 + box 38. Subsequent gains = capital gains.</p>
+                <p><strong>Stock Options (Public):</strong> Bargain element = employment income at exercise. May qualify for 50% deduction (110(1)(d)) if exercise price ≥ FMV at grant.</p>
+                <p><strong>ESPP:</strong> Discount on purchase = taxable employment benefit. Holding period after purchase determines capital gains treatment.</p>
+                <div class="warning">⚠ Sale of stock at a gain triggers capital gains; loss may trigger superficial loss rules if you repurchase within 30 days.</div>
+            </div>
+
+            <div>
+                <label class="label">RSU/Stock Award Income (already on T4 Box 14)? ($)</label>
+                <input type="number" id="rsuIncome" class="input-field" min="0" value="20000">
+                <p class="text-xs text-slate-500 mt-1">FMV at vesting date — already taxed as salary</p>
+            </div>
+            <div>
+                <label class="label">Stock Option Benefit ($)</label>
+                <input type="number" id="optionBenefit" class="input-field" min="0" value="0">
+            </div>
+            <div>
+                <label class="label">Eligible For 110(1)(d) 50% Deduction?</label>
+                <select id="optionDeduction" class="input-field">
+                    <option value="no">No</option>
+                    <option value="yes">Yes - Qualifying public co. options</option>
+                </select>
+            </div>
+            <div>
+                <label class="label">ESPP Discount Benefit ($)</label>
+                <input type="number" id="esppBenefit" class="input-field" min="0" value="0">
+            </div>
+
+            <div class="section-divider"></div>
+            <h3 class="font-bold text-slate-200">Realized Capital Gains/Losses (Non-Registered)</h3>
+
+            <div>
+                <label class="label">Capital Gains Realized This Year ($)</label>
+                <input type="number" id="capitalGains" class="input-field" min="0" value="10000">
+                <p class="text-xs text-slate-500 mt-1">First $250K: 50% inclusion. Above: 66.67% (June 2024+ rules)</p>
+            </div>
+            <div>
+                <label class="label">Capital Losses This Year ($)</label>
+                <input type="number" id="capitalLosses" class="input-field" min="0" value="0">
+            </div>
+            <div>
+                <label class="label">Carry-Forward Capital Losses From Prior Years ($)</label>
+                <input type="number" id="carryforwardLosses" class="input-field" min="0" value="0">
+            </div>
+
+            <div class="section-divider"></div>
+            <h3 class="font-bold text-slate-200">Investment Income</h3>
+
+            <div>
+                <label class="label">Eligible Canadian Dividends ($)</label>
+                <input type="number" id="eligibleDividends" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">Gross-up 38%, federal credit 15.02%, Ontario 10%</p>
+            </div>
+            <div>
+                <label class="label">Foreign Dividends / US Stock Dividends ($)</label>
+                <input type="number" id="foreignDividends" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">Taxed as regular income; foreign tax credit available</p>
+            </div>
+            <div>
+                <label class="label">Interest Income (GICs, Bonds) ($)</label>
+                <input type="number" id="interestIncome" class="input-field" min="0" value="0">
+            </div>
+            <div>
+                <label class="label">Unused Stocks Held (Unrealized Gains) ($)</label>
+                <input type="number" id="unrealizedGains" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">For planning — not taxed until sold</p>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="navigateTo('employmentView')" class="btn-secondary">← Back</button>
+                <button onclick="navigateTo('deductionsView')" class="btn-primary flex-1">Continue: Deductions →</button>
+            </div>
+        </div>
+
+        <!-- DEDUCTIONS VIEW -->
+        <div id="deductionsView" class="hidden-section glass-panel p-6 rounded-2xl fade-in space-y-5">
+            <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Deductions, Credits & Housing</h2>
+
+            <h3 class="font-bold text-slate-200 mt-2">Registered Accounts</h3>
+
+            <div>
+                <label class="label">RRSP Contribution This Year ($)</label>
+                <input type="number" id="rrspContribution" class="input-field" min="0" value="10000">
+            </div>
+            <div>
+                <label class="label">RRSP Available Room ($)</label>
+                <input type="number" id="rrspRoom" class="input-field" min="0" value="20000">
+                <p class="text-xs text-slate-500 mt-1">Found on prior year Notice of Assessment</p>
+            </div>
+            <div>
+                <label class="label">Spousal RRSP Contribution ($)</label>
+                <input type="number" id="spousalRRSP" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">Counts against your room; deductible by you</p>
+            </div>
+            <div>
+                <label class="label">FHSA Contribution ($, max $8,000/year)</label>
+                <input type="number" id="fhsaContribution" class="input-field" min="0" max="8000" value="0">
+            </div>
+            <div>
+                <label class="label">TFSA Contribution ($, max $7,000 in 2024)</label>
+                <input type="number" id="tfsaContribution" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">Not tax-deductible but tax-free growth</p>
+            </div>
+            <div>
+                <label class="label">RESP Contribution ($, $2,500/child for max grant)</label>
+                <input type="number" id="respContribution" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">Federal CESG: 20% match up to $500/child/year</p>
+            </div>
+
+            <div class="section-divider"></div>
+            <h3 class="font-bold text-slate-200">Family & Health</h3>
+
+            <div>
+                <label class="label">Childcare Expenses ($)</label>
+                <input type="number" id="childcareExpenses" class="input-field" min="0" value="0">
+            </div>
+            <div>
+                <label class="label">Medical Expenses (Above 3% Threshold) ($)</label>
+                <input type="number" id="medicalExpenses" class="input-field" min="0" value="0">
+            </div>
+            <div>
+                <label class="label">Charitable Donations ($)</label>
+                <input type="number" id="charitableDonations" class="input-field" min="0" value="0">
+            </div>
+            <div>
+                <label class="label">Union/Professional Dues ($)</label>
+                <input type="number" id="unionDues" class="input-field" min="0" value="0">
+            </div>
+
+            <div class="section-divider"></div>
+            <h3 class="font-bold text-slate-200">Work-From-Home</h3>
+
+            <div>
+                <label class="label">Home Office Days (Flat-Rate, $2/day, max $500)</label>
+                <input type="number" id="homeOfficeDays" class="input-field" min="0" max="365" value="0">
+            </div>
+
+            <div class="section-divider"></div>
+            <h3 class="font-bold text-slate-200">Ottawa Housing</h3>
+
+            <div>
+                <label class="label">Property Tax Paid OR Annual Rent ($)</label>
+                <div class="flex gap-3 mb-3 mt-2">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="housingType" value="tax" checked class="w-4 h-4">
+                        <span class="text-sm">Property Tax</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="housingType" value="rent" class="w-4 h-4">
+                        <span class="text-sm">Annual Rent</span>
+                    </label>
+                </div>
+                <input type="number" id="housingAmount" class="input-field" min="0" value="5500">
+            </div>
+            <div>
+                <label class="label">Mortgage Interest Paid ($, info only)</label>
+                <input type="number" id="mortgageInterest" class="input-field" min="0" value="0">
+                <p class="text-xs text-slate-500 mt-1">Not directly deductible (Smith Manoeuvre is advanced)</p>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="navigateTo('stocksView')" class="btn-secondary">← Back</button>
+                <button onclick="runFullCalculation()" class="btn-primary flex-1">
+                    Calculate & Optimize
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- RESULTS VIEW -->
+        <div id="resultsView" class="hidden-section glass-panel p-6 rounded-2xl fade-in space-y-5">
+            <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Tax Calculation Results</h2>
+
+            <div class="grid grid-cols-3 gap-3" style="display: grid;">
+                <div class="stat-card">
+                    <div class="stat-value" id="federalTax">$0</div>
+                    <div class="stat-label">Federal Tax</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="ontarioTax">$0</div>
+                    <div class="stat-label">Ontario Tax</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalTax">$0</div>
+                    <div class="stat-label" id="totalTaxLabel">Total Tax</div>
+                </div>
+            </div>
+
+            <div class="stat-card" id="refundCard" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.18), rgba(16, 185, 129, 0.1)); border: 1px solid rgba(251, 191, 36, 0.3);">
+                <div class="stat-value" style="font-size: 32px;" id="netResult">$0</div>
+                <div class="stat-label" id="netResultLabel">Refund / Owing</div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 grid-cols-2-mobile" style="display: grid;">
+                <div class="stat-card">
+                    <div class="stat-value" id="effectiveRate" style="color: #10b981;">0%</div>
+                    <div class="stat-label">Effective Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="marginalRate" style="color: #10b981;">0%</div>
+                    <div class="stat-label">Marginal Rate</div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span class="font-semibold flex items-center gap-2">
+                        <svg class="w-5 h-5 text-app-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                        Income Breakdown
+                    </span>
+                    <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="accordion-content" id="incomeBreakdown"></div>
+            </div>
+
+            <div>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span class="font-semibold flex items-center gap-2">
+                        <svg class="w-5 h-5 text-app-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Credits & Deductions Applied
+                    </span>
+                    <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="accordion-content" id="creditsBreakdown"></div>
+            </div>
+
+            <div>
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span class="font-semibold flex items-center gap-2">
+                        <svg class="w-5 h-5 text-app-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        Government Benefits Estimate
+                    </span>
+                    <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </div>
+                <div class="accordion-content" id="benefitsBreakdown"></div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="navigateTo('deductionsView')" class="btn-secondary">← Edit</button>
+                <button onclick="navigateTo('strategyView')" class="btn-primary flex-1">View Strategies →</button>
+            </div>
+        </div>
+
+        <!-- STRATEGY VIEW -->
+        <div id="strategyView" class="hidden-section glass-panel p-6 rounded-2xl fade-in space-y-4">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Personalized Strategy</h2>
+                <span class="badge badge-gold">Action Plan</span>
+            </div>
+            <p class="text-slate-400 text-sm">Ranked by potential dollar impact for your situation. Highest-impact items shown first.</p>
+
+            <div id="strategyList"></div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="navigateTo('resultsView')" class="btn-secondary">← Results</button>
+                <button onclick="navigateTo('exportView')" class="btn-primary flex-1">
+                    Export Plan (JSON) →
+                </button>
+            </div>
+        </div>
+
+        <!-- EXPORT VIEW -->
+        <div id="exportView" class="hidden-section glass-panel p-6 rounded-2xl fade-in space-y-5">
+            <h2 class="text-2xl font-bold text-app-gold" style="font-family: 'Nunito', sans-serif;">Export Your Tax Plan</h2>
+            <p class="text-slate-400 text-sm">Download a complete JSON file with your inputs, calculations, recommendations, document checklist, and action plan. Great for your accountant or for next year's reference.</p>
+
+            <div class="flex gap-3 flex-wrap">
+                <button onclick="downloadJSON()" class="btn-gold">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download tax-plan.json
+                </button>
+                <button onclick="copyJSON()" class="btn-secondary">
+                    Copy to Clipboard
+                </button>
+                <button onclick="downloadCSV()" class="btn-secondary">
+                    Download CSV Summary
+                </button>
+            </div>
+
+            <div>
+                <label class="label">Preview</label>
+                <div id="jsonPreview" class="json-preview"></div>
+            </div>
+
+            <h3 class="font-bold text-slate-200 mt-4">Document Checklist</h3>
+            <div id="checklistContainer"></div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="navigateTo('strategyView')" class="btn-secondary">← Strategies</button>
+                <button onclick="resetApp()" class="btn-secondary">Start Over</button>
+            </div>
+        </div>
+
+        <p class="text-xs text-slate-500 text-center mt-6">
+            ⚠ This tool provides estimates for educational purposes only. Tax rules change; consult a CPA for filing.
+        </p>
+    </div>
+
+    <script>
+        // ============================================================
+        // EDUCATION CONTENT
+        // ============================================================
+        const educationModules = [
+            {
+                title: "Marginal vs Effective Tax Rates",
+                icon: "trending-up",
+                body: `<p><strong>Marginal rate</strong> is the tax % on your <em>next</em> dollar earned. <strong>Effective rate</strong> is the average % across all income.</p>
+                       <p>In Ontario, the combined federal+provincial marginal rate hits 53.53% above $246,752. But your <em>average</em> rate is much lower because lower brackets are taxed less.</p>
+                       <div class="key-point">Every deduction saves you tax at your <strong>marginal rate</strong> — that's why high earners save more per RRSP dollar.</div>`
+            },
+            {
+                title: "RRSP — The Tax Deferral Engine",
+                icon: "piggy-bank",
+                body: `<p>RRSP contributions <strong>reduce taxable income</strong> dollar-for-dollar. Investments grow tax-free until withdrawal (taxed as ordinary income in retirement).</p>
+                       <p>Best when current marginal rate > expected retirement rate. For Ottawa earners over $100K, this is almost always true.</p>
+                       <div class="key-point">2024 limit: 18% of prior-year earned income, max $31,560. Carry-forward allowed.</div>
+                       <div class="warning">Pension Adjustment (PA) on T4 reduces your RRSP room if you have an employer pension.</div>`
+            },
+            {
+                title: "TFSA — The Wealth Multiplier",
+                icon: "trending-up",
+                body: `<p>No deduction, but <strong>all growth and withdrawals are tax-free forever</strong>. Withdrawals re-create room next year.</p>
+                       <p>2024 contribution: $7,000. Lifetime room since 2009 (if 18+ in 2009): $95,000.</p>
+                       <div class="key-point">Hold US dividend stocks <em>outside</em> TFSA (15% withholding tax not recoverable). Hold Canadian growth stocks inside.</div>`
+            },
+            {
+                title: "FHSA — First Home Super Account",
+                icon: "home",
+                body: `<p>Combines RRSP deduction + TFSA tax-free withdrawal for first-home purchase. $8K/year, $40K lifetime.</p>
+                       <div class="key-point">If you're a first-time buyer or haven't owned in 4+ years, this is the highest-priority account in Canada — better than RRSP for this purpose.</div>`
+            },
+            {
+                title: "RESP — Free Government Money",
+                icon: "graduation-cap",
+                body: `<p>Contribute up to $2,500/child/year to receive 20% Canada Education Savings Grant (CESG) — up to $500/year, $7,200 lifetime.</p>
+                       <div class="key-point">Lower-income families also qualify for Canada Learning Bond (no contribution required) and additional CESG.</div>
+                       <p>Withdrawals taxed in child's hands (typically near $0 tax during university).</p>`
+            },
+            {
+                title: "Capital Gains — Only Half Taxed (Mostly)",
+                icon: "chart-line",
+                body: `<p>50% of capital gains are added to taxable income on the first $250,000/year. Above that threshold (June 25, 2024+ rules), inclusion rate jumps to 66.67%.</p>
+                       <div class="key-point">Use <strong>tax-loss harvesting</strong>: sell losers in non-registered accounts to offset gains. Watch the 30-day superficial loss rule.</div>
+                       <p>ACB (Adjusted Cost Base) tracking is critical. If you DRIP, every reinvestment increases ACB.</p>`
+            },
+            {
+                title: "Stock Options & RSUs — The Employer Wealth Path",
+                icon: "briefcase",
+                body: `<p><strong>RSUs:</strong> Treated as employment income at vest. Already on T4 box 14. Sell-to-cover tax shortfall is common; you may owe more if RSU income pushes you into higher bracket.</p>
+                       <p><strong>Stock Options:</strong> Bargain element = employment income at exercise. May qualify for <code>110(1)(d)</code> 50% deduction if option price ≥ FMV at grant (effective rate matches capital gains).</p>
+                       <p><strong>ESPP:</strong> Discount benefit is employment income. Qualifying period rules vary by employer.</p>
+                       <div class="warning">Subsequent gains/losses after vest/exercise = capital gains. ACB = FMV at vest/exercise.</div>`
+            },
+            {
+                title: "Dividend Tax Credit — Canadian Advantage",
+                icon: "coins",
+                body: `<p>Eligible Canadian dividends are <strong>grossed-up 38%</strong>, then receive federal (15.02%) + Ontario (10%) tax credits. Effective tax rate is much lower than ordinary income.</p>
+                       <p>Foreign dividends (US, etc.) are taxed as ordinary income but have foreign tax credit for withholdings.</p>
+                       <div class="key-point">Hold Canadian dividend stocks in non-registered accounts to use this credit. Hold foreign dividends in RRSP (US treaty exempts withholding).</div>`
+            },
+            {
+                title: "Income Splitting — Married Couples",
+                icon: "users",
+                body: `<p><strong>Pension splitting (after 65):</strong> Up to 50% of eligible pension income can shift to lower-income spouse.</p>
+                       <p><strong>Spousal RRSP:</strong> Higher-earner contributes; lower-earner withdraws (after 3-year attribution rule).</p>
+                       <p><strong>Prescribed-rate loan:</strong> Lend to spouse at CRA prescribed rate to invest; spouse pays tax on growth at lower bracket.</p>
+                       <p><strong>TFSA gifting:</strong> Higher-earner can gift to spouse to fund TFSA without attribution.</p>
+                       <div class="key-point">Childcare expenses must be claimed by the LOWER-income spouse (with limited exceptions).</div>`
+            },
+            {
+                title: "Ontario-Specific Credits",
+                icon: "map-pin",
+                body: `<p><strong>Ontario Trillium Benefit (OTB):</strong> Combines property tax/rent credit + energy credit + sales tax credit. File Schedule ON-BEN.</p>
+                       <p><strong>CARE Tax Credit:</strong> Refundable childcare access credit, up to 75% of childcare expenses for low-income families.</p>
+                       <p><strong>Ontario Senior Homeowners' Property Tax Grant:</strong> Up to $500 for seniors 64+.</p>
+                       <div class="key-point">Ottawa property taxes are mid-range for Ontario; OTB property tax credit can return $600-$1,400 depending on income.</div>`
+            },
+            {
+                title: "Advanced: Wealth Acceleration",
+                icon: "rocket",
+                body: `<p><strong>Smith Manoeuvre:</strong> Convert mortgage interest into tax-deductible investment loan via HELOC. Risk-tolerant only.</p>
+                       <p><strong>Permanent Life Insurance (over-funded):</strong> Tax-sheltered growth with leverage potential. Niche, complex.</p>
+                       <p><strong>Holding company:</strong> Only relevant if self-employed or own business; not for T4 employees.</p>
+                       <p><strong>Covered call ETFs:</strong> Generate "tax-favored" return-of-capital distributions in non-registered accounts.</p>
+                       <div class="warning">Advanced strategies require professional advice. Always consult a fee-only CPA + Certified Financial Planner.</div>`
+            }
+        ];
+
+        function renderEducationModules() {
+            let html = '';
+            educationModules.forEach((mod, idx) => {
+                html += `
+                    <div class="education-card">
+                        <h4>${mod.title}</h4>
+                        ${mod.body}
+                    </div>
+                `;
+            });
+            document.getElementById('learnAccordion').innerHTML = html;
+        }
+
+        // ============================================================
+        // AUTH
+        // ============================================================
+        function attemptLogin() {
+            const u = document.getElementById('usernameInput').value;
+            const p = document.getElementById('passwordInput').value;
+            const err = document.getElementById('loginError');
+            if (u === 'ibrahim' && p === 'ibrahimwin') {
+                document.getElementById('loginView').classList.add('hidden-section');
+                document.getElementById('appContainer').classList.remove('hidden-section');
+                document.getElementById('appContainer').classList.add('fade-in');
+                renderEducationModules();
+            } else {
+                err.classList.remove('hidden');
+                err.textContent = 'Invalid credentials.';
+                setTimeout(() => err.classList.add('hidden'), 2500);
+            }
+        }
+
+        // ============================================================
+        // NAVIGATION
+        // ============================================================
+        const allViews = ['learnView', 'profileView', 'employmentView', 'stocksView', 'deductionsView', 'resultsView', 'strategyView', 'exportView'];
+
+        function navigateTo(viewId) {
+            allViews.forEach(v => {
+                const el = document.getElementById(v);
+                if (el) el.classList.add('hidden-section');
+            });
+            document.getElementById(viewId).classList.remove('hidden-section');
+            document.getElementById(viewId).classList.add('fade-in');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const btn = document.querySelector(`[data-view="${viewId}"]`);
+            if (btn) btn.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleAccordion(header) {
+            const icon = header.querySelector('svg:last-child');
+            const content = header.nextElementSibling;
+            content.classList.toggle('active');
+            if (icon) icon.classList.toggle('rotate-180');
+        }
+
+        // ============================================================
+        // TAX CALCULATION
+        // ============================================================
+        const FED_BRACKETS = [
+            { limit: 55867,    rate: 0.15 },
+            { limit: 111733,   rate: 0.205 },
+            { limit: 173205,   rate: 0.26 },
+            { limit: 246752,   rate: 0.29 },
+            { limit: Infinity, rate: 0.33 }
+        ];
+        const ON_BRACKETS = [
+            { limit: 51446,    rate: 0.0505 },
+            { limit: 102894,   rate: 0.0915 },
+            { limit: 150000,   rate: 0.1116 },
+            { limit: 220000,   rate: 0.1216 },
+            { limit: Infinity, rate: 0.1316 }
+        ];
+        const FED_BPA = 15705;
+        const ON_BPA = 11865;
+        const RRSP_MAX = 31560;
+
+        function tieredTax(income, brackets) {
+            let tax = 0, prev = 0;
+            for (const b of brackets) {
+                if (income <= prev) break;
+                const slice = Math.min(income, b.limit) - prev;
+                tax += slice * b.rate;
+                prev = b.limit;
+            }
+            return Math.max(0, tax);
+        }
+
+        function marginalRate(income) {
+            let fed = 0.15, on = 0.0505;
+            for (const b of FED_BRACKETS) if (income > (b._prev||0) && income <= b.limit) { fed = b.rate; break; }
+            for (let i = 0; i < FED_BRACKETS.length; i++) {
+                const prev = i === 0 ? 0 : FED_BRACKETS[i-1].limit;
+                if (income > prev) fed = FED_BRACKETS[i].rate;
+            }
+            for (let i = 0; i < ON_BRACKETS.length; i++) {
+                const prev = i === 0 ? 0 : ON_BRACKETS[i-1].limit;
+                if (income > prev) on = ON_BRACKETS[i].rate;
+            }
+            return (fed + on) * 100;
+        }
+
+        function getInputs() {
+            return {
+                yourAge: parseFloat(document.getElementById('yourAge').value) || 35,
+                spouseAge: parseFloat(document.getElementById('spouseAge').value) || 35,
+                childrenUnder7: parseInt(document.getElementById('childrenUnder7').value) || 0,
+                children7to16: parseInt(document.getElementById('children7to16').value) || 0,
+                firstTimeBuyer: document.getElementById('firstTimeBuyer').value,
+                primaryEarner: document.getElementById('primaryEarner').value,
+                yourIncome: parseFloat(document.getElementById('yourIncome').value) || 0,
+                spouseIncome: parseFloat(document.getElementById('spouseIncome').value) || 0,
+                cppContribution: parseFloat(document.getElementById('cppContribution').value) || 0,
+                eiContribution: parseFloat(document.getElementById('eiContribution').value) || 0,
+                rppContribution: parseFloat(document.getElementById('rppContribution').value) || 0,
+                taxWithheld: parseFloat(document.getElementById('taxWithheld').value) || 0,
+                rsuIncome: parseFloat(document.getElementById('rsuIncome').value) || 0,
+                optionBenefit: parseFloat(document.getElementById('optionBenefit').value) || 0,
+                optionDeduction: document.getElementById('optionDeduction').value === 'yes',
+                esppBenefit: parseFloat(document.getElementById('esppBenefit').value) || 0,
+                capitalGains: parseFloat(document.getElementById('capitalGains').value) || 0,
+                capitalLosses: parseFloat(document.getElementById('capitalLosses').value) || 0,
+                carryforwardLosses: parseFloat(document.getElementById('carryforwardLosses').value) || 0,
+                eligibleDividends: parseFloat(document.getElementById('eligibleDividends').value) || 0,
+                foreignDividends: parseFloat(document.getElementById('foreignDividends').value) || 0,
+                interestIncome: parseFloat(document.getElementById('interestIncome').value) || 0,
+                unrealizedGains: parseFloat(document.getElementById('unrealizedGains').value) || 0,
+                rrspContribution: parseFloat(document.getElementById('rrspContribution').value) || 0,
+                rrspRoom: parseFloat(document.getElementById('rrspRoom').value) || 0,
+                spousalRRSP: parseFloat(document.getElementById('spousalRRSP').value) || 0,
+                fhsaContribution: parseFloat(document.getElementById('fhsaContribution').value) || 0,
+                tfsaContribution: parseFloat(document.getElementById('tfsaContribution').value) || 0,
+                respContribution: parseFloat(document.getElementById('respContribution').value) || 0,
+                childcareExpenses: parseFloat(document.getElementById('childcareExpenses').value) || 0,
+                medicalExpenses: parseFloat(document.getElementById('medicalExpenses').value) || 0,
+                charitableDonations: parseFloat(document.getElementById('charitableDonations').value) || 0,
+                unionDues: parseFloat(document.getElementById('unionDues').value) || 0,
+                homeOfficeDays: parseInt(document.getElementById('homeOfficeDays').value) || 0,
+                housingType: document.querySelector('input[name="housingType"]:checked').value,
+                housingAmount: parseFloat(document.getElementById('housingAmount').value) || 0,
+                mortgageInterest: parseFloat(document.getElementById('mortgageInterest').value) || 0
+            };
+        }
+
+        let lastCalc = null;
+
+        function runFullCalculation() {
+            const inp = getInputs();
+
+            // Total taxable employment income (T4 already includes RSU/options/ESPP if reported there)
+            const grossEmployment = inp.yourIncome; // assumes RSU/option/ESPP already in T4 Box 14
+            const stockOptionDeduction = inp.optionDeduction ? inp.optionBenefit * 0.5 : 0;
+
+            // Capital gains net of losses
+            const netCapitalGains = Math.max(0, inp.capitalGains - inp.capitalLosses - inp.carryforwardLosses);
+            const taxableCapGains = netCapitalGains <= 250000
+                ? netCapitalGains * 0.5
+                : 250000 * 0.5 + (netCapitalGains - 250000) * 0.6667;
+
+            // Eligible dividends gross-up
+            const grossedDividends = inp.eligibleDividends * 1.38;
+
+            // Total deductions
+            const totalDeductions =
+                inp.rrspContribution +
+                inp.spousalRRSP +
+                inp.fhsaContribution +
+                inp.unionDues +
+                Math.min(inp.homeOfficeDays * 2, 500) +
+                inp.childcareExpenses +
+                stockOptionDeduction +
+                inp.rppContribution;
+
+            // Taxable income
+            const taxableIncome = Math.max(0,
+                grossEmployment +
+                taxableCapGains +
+                grossedDividends +
+                inp.foreignDividends +
+                inp.interestIncome -
+                totalDeductions
+            );
+
+            // Federal tax before credits
+            const fedTaxBefore = tieredTax(taxableIncome, FED_BRACKETS);
+
+            // Federal credits (15% non-refundable)
+            const fedBPACredit = FED_BPA * 0.15;
+            let spouseAmountCredit = 0;
+            if (inp.spouseIncome < FED_BPA) {
+                spouseAmountCredit = (FED_BPA - inp.spouseIncome) * 0.15;
+            }
+            const numChildren = inp.childrenUnder7 + inp.children7to16;
+            const cppEiCredit = (inp.cppContribution + inp.eiContribution) * 0.15;
+            const medicalThreshold = Math.min(taxableIncome * 0.03, 2759);
+            const medicalCredit = Math.max(0, inp.medicalExpenses - medicalThreshold) * 0.15;
+            let charityCredit = 0;
+            if (inp.charitableDonations > 200) {
+                charityCredit = 200 * 0.15 + (inp.charitableDonations - 200) * 0.29;
+            } else if (inp.charitableDonations > 0) {
+                charityCredit = inp.charitableDonations * 0.15;
+            }
+            const eligibleDivCredit = grossedDividends * 0.1502;
+
+            const totalFedCredits = fedBPACredit + spouseAmountCredit + cppEiCredit +
+                                    medicalCredit + charityCredit + eligibleDivCredit;
+
+            const fedTax = Math.max(0, fedTaxBefore - totalFedCredits);
+
+            // Ontario tax before credits
+            const onTaxBefore = tieredTax(taxableIncome, ON_BRACKETS);
+            const onBPACredit = ON_BPA * 0.0505;
+            const onCppEiCredit = (inp.cppContribution + inp.eiContribution) * 0.0505;
+            const onMedicalCredit = Math.max(0, inp.medicalExpenses - medicalThreshold) * 0.0505;
+            const onCharityCredit = inp.charitableDonations <= 200
+                ? inp.charitableDonations * 0.0505
+                : 200 * 0.0505 + (inp.charitableDonations - 200) * 0.1116;
+            const onEligibleDivCredit = grossedDividends * 0.10;
+
+            // Ontario surtax
+            let onSurtax = 0;
+            const onTaxAfterCredits = Math.max(0, onTaxBefore - onBPACredit - onCppEiCredit - onMedicalCredit - onCharityCredit - onEligibleDivCredit);
+            if (onTaxAfterCredits > 5554) onSurtax += (Math.min(onTaxAfterCredits, 7108) - 5554) * 0.20;
+            if (onTaxAfterCredits > 7108) onSurtax += (onTaxAfterCredits - 7108) * 0.36;
+
+            // Ontario Health Premium
+            let onHealthPremium = 0;
+            if (taxableIncome > 20000) {
+                if (taxableIncome <= 25000) onHealthPremium = (taxableIncome - 20000) * 0.06;
+                else if (taxableIncome <= 36000) onHealthPremium = 300;
+                else if (taxableIncome <= 38500) onHealthPremium = 300 + (taxableIncome - 36000) * 0.06;
+                else if (taxableIncome <= 48000) onHealthPremium = 450;
+                else if (taxableIncome <= 48600) onHealthPremium = 450 + (taxableIncome - 48000) * 0.25;
+                else if (taxableIncome <= 72000) onHealthPremium = 600;
+                else if (taxableIncome <= 72600) onHealthPremium = 600 + (taxableIncome - 72000) * 0.25;
+                else if (taxableIncome <= 200000) onHealthPremium = 750;
+                else if (taxableIncome <= 200600) onHealthPremium = 750 + (taxableIncome - 200000) * 0.25;
+                else onHealthPremium = 900;
+            }
+
+            // Ontario Child Care Tax Credit (CARE)
+            const ontarioCCTC = Math.min(inp.childcareExpenses, inp.childrenUnder7 * 6000 + inp.children7to16 * 3750) * 0.075;
+
+            const ontarioTax = onTaxAfterCredits + onSurtax + onHealthPremium - ontarioCCTC;
+
+            // Ontario Trillium Benefit (estimated)
+            const familyIncome = taxableIncome + inp.spouseIncome;
+            let otbProperty = 0, otbEnergy = 0, otbSales = 0;
+            const baseHousingClaim = inp.housingType === 'tax' ? inp.housingAmount : inp.housingAmount * 0.20;
+            otbProperty = Math.max(0, Math.min(baseHousingClaim, 1248) - Math.max(0, (familyIncome - 26535) * 0.02));
+            otbEnergy = numChildren > 0 ? 257 : 132;
+            otbEnergy = Math.max(0, otbEnergy - Math.max(0, (familyIncome - 26535) * 0.02));
+            otbSales = (numChildren + 2) * 360;
+            otbSales = Math.max(0, otbSales - Math.max(0, (familyIncome - 26535) * 0.04));
+            const otbTotal = otbProperty + otbEnergy + otbSales;
+
+            // Canada Child Benefit
+            let ccbAnnual = 0;
+            if (numChildren > 0) {
+                const youngBase = 7787, oldBase = 6570;
+                const baseCCB = inp.childrenUnder7 * youngBase + inp.children7to16 * oldBase;
+                if (familyIncome <= 36502) {
+                    ccbAnnual = baseCCB;
+                } else if (familyIncome <= 79087) {
+                    const reduction = numChildren === 1 ? 0.07 : numChildren === 2 ? 0.135 : numChildren === 3 ? 0.19 : 0.23;
+                    ccbAnnual = Math.max(0, baseCCB - (familyIncome - 36502) * reduction);
+                } else {
+                    const phase2Base = numChildren === 1 ? 2981 : numChildren === 2 ? 5751 : numChildren === 3 ? 8092 : 9744;
+                    const reduction2 = numChildren === 1 ? 0.032 : numChildren === 2 ? 0.057 : numChildren === 3 ? 0.08 : 0.095;
+                    ccbAnnual = Math.max(0, phase2Base - (familyIncome - 79087) * reduction2);
+                }
+            }
+
+            const totalTax = fedTax + ontarioTax;
+            const netResult = inp.taxWithheld - totalTax; // positive = refund
+            const effectiveRate = taxableIncome > 0 ? (totalTax / taxableIncome * 100).toFixed(1) : 0;
+            const margRate = marginalRate(taxableIncome).toFixed(1);
+
+            // ESPP/RSU/Options narrative
+            const stockTotal = inp.rsuIncome + inp.optionBenefit + inp.esppBenefit;
+
+            lastCalc = {
+                inputs: inp,
+                computed: {
+                    grossEmployment,
+                    stockOptionDeduction,
+                    netCapitalGains,
+                    taxableCapGains,
+                    grossedDividends,
+                    totalDeductions,
+                    taxableIncome,
+                    fedTaxBefore,
+                    fedTax,
+                    onTaxAfterCredits,
+                    onSurtax,
+                    onHealthPremium,
+                    ontarioCCTC,
+                    ontarioTax,
+                    totalTax,
+                    netResult,
+                    effectiveRate,
+                    marginalRate: margRate,
+                    familyIncome,
+                    ccbAnnual,
+                    otbTotal,
+                    otbProperty,
+                    otbEnergy,
+                    otbSales,
+                    medicalThreshold,
+                    fedBPACredit,
+                    spouseAmountCredit,
+                    eligibleDivCredit,
+                    onEligibleDivCredit
+                }
+            };
+
+            // Display
+            document.getElementById('federalTax').textContent = '$' + Math.round(fedTax).toLocaleString('en-CA');
+            document.getElementById('ontarioTax').textContent = '$' + Math.round(ontarioTax).toLocaleString('en-CA');
+            document.getElementById('totalTax').textContent = '$' + Math.round(totalTax).toLocaleString('en-CA');
+            document.getElementById('effectiveRate').textContent = effectiveRate + '%';
+            document.getElementById('marginalRate').textContent = margRate + '%';
+
+            const netEl = document.getElementById('netResult');
+            const netLabel = document.getElementById('netResultLabel');
+            if (netResult >= 0) {
+                netEl.textContent = '$' + Math.round(netResult).toLocaleString('en-CA');
+                netEl.style.color = '#10b981';
+                netLabel.textContent = 'Expected Refund';
+            } else {
+                netEl.textContent = '-$' + Math.round(Math.abs(netResult)).toLocaleString('en-CA');
+                netEl.style.color = '#f87171';
+                netLabel.textContent = 'Balance Owing';
+            }
+
+            // Income breakdown
+            let incomeHtml = '';
+            const incomeRows = [
+                ['Employment Income (T4)', grossEmployment],
+                ['  ↳ RSU/Stock Awards (in T4)', inp.rsuIncome],
+                ['  ↳ Stock Option Benefit (in T4)', inp.optionBenefit],
+                ['  ↳ ESPP Discount Benefit (in T4)', inp.esppBenefit],
+                ['Net Capital Gains (after losses)', netCapitalGains],
+                ['  ↳ Taxable Portion (50%/66.67%)', taxableCapGains],
+                ['Eligible Canadian Dividends', inp.eligibleDividends],
+                ['  ↳ Grossed-Up (138%)', grossedDividends],
+                ['Foreign Dividends', inp.foreignDividends],
+                ['Interest Income', inp.interestIncome],
+                ['Total Deductions', -totalDeductions],
+                ['  ↳ RRSP', -inp.rrspContribution],
+                ['  ↳ Spousal RRSP', -inp.spousalRRSP],
+                ['  ↳ FHSA', -inp.fhsaContribution],
+                ['  ↳ Stock Option 110(1)(d)', -stockOptionDeduction],
+                ['  ↳ Childcare Expenses', -inp.childcareExpenses],
+                ['  ↳ Union Dues', -inp.unionDues],
+                ['  ↳ Home Office Flat-Rate', -Math.min(inp.homeOfficeDays * 2, 500)],
+                ['  ↳ RPP (Pension)', -inp.rppContribution],
+                ['<strong>Taxable Income</strong>', taxableIncome]
+            ];
+            incomeRows.forEach(r => {
+                if (r[1] === 0 && !r[0].includes('Taxable Income')) return;
+                incomeHtml += `<div class="credit-row">
+                    <span class="credit-label">${r[0]}</span>
+                    <span class="credit-amount" style="color:${r[1] < 0 ? '#f87171' : '#10b981'}">${r[1] < 0 ? '-' : ''}$${Math.abs(Math.round(r[1])).toLocaleString('en-CA')}</span>
+                </div>`;
+            });
+            document.getElementById('incomeBreakdown').innerHTML = incomeHtml;
+
+            // Credits breakdown
+            let creditsHtml = '';
+            const creditRows = [
+                ['Federal Basic Personal Amount', fedBPACredit],
+                ['Federal Spousal Amount Credit', spouseAmountCredit],
+                ['CPP/EI Credit', cppEiCredit],
+                ['Medical Expense Credit', medicalCredit],
+                ['Charitable Donation Credit', charityCredit],
+                ['Eligible Dividend Tax Credit (Federal)', eligibleDivCredit],
+                ['Ontario Basic Personal Amount', onBPACredit],
+                ['Ontario CPP/EI Credit', onCppEiCredit],
+                ['Ontario Charity Credit', onCharityCredit],
+                ['Ontario Eligible Dividend Credit', onEligibleDivCredit],
+                ['Ontario Child Care Tax Credit', ontarioCCTC],
+                ['<strong>Total Federal Credits</strong>', totalFedCredits],
+                ['<strong>Effective Tax Reduction</strong>', totalFedCredits + onBPACredit + onCppEiCredit + ontarioCCTC]
+            ];
+            creditRows.forEach(r => {
+                if (r[1] === 0) return;
+                creditsHtml += `<div class="credit-row">
+                    <span class="credit-label">${r[0]}</span>
+                    <span class="credit-amount">$${Math.round(r[1]).toLocaleString('en-CA')}</span>
+                </div>`;
+            });
+            document.getElementById('creditsBreakdown').innerHTML = creditsHtml;
+
+            // Benefits breakdown
+            let benefitsHtml = '';
+            const benefitRows = [
+                ['Canada Child Benefit (Annual)', ccbAnnual, 'Tax-free'],
+                ['CCB Monthly', ccbAnnual / 12, 'Direct deposit'],
+                ['Ontario Trillium Benefit (Annual)', otbTotal, 'Property + Energy + Sales'],
+                ['  ↳ Property Tax Credit', otbProperty, ''],
+                ['  ↳ Energy Credit', otbEnergy, ''],
+                ['  ↳ Sales Tax Credit', otbSales, ''],
+                ['<strong>Total Benefits Per Year</strong>', ccbAnnual + otbTotal, 'On top of refund']
+            ];
+            benefitRows.forEach(r => {
+                if (r[1] === 0) return;
+                benefitsHtml += `<div class="credit-row">
+                    <span class="credit-label">${r[0]}${r[2] ? `<br><span style="font-size:11px;color:#64748b">${r[2]}</span>` : ''}</span>
+                    <span class="credit-amount">$${Math.round(r[1]).toLocaleString('en-CA')}</span>
+                </div>`;
+            });
+            document.getElementById('benefitsBreakdown').innerHTML = benefitsHtml;
+
+            // Build strategies + checklist
+            buildStrategies(inp, lastCalc.computed);
+            buildChecklist(inp);
+            buildJSONPreview();
+
+            navigateTo('resultsView');
+        }
+
+        // ============================================================
+        // STRATEGY ENGINE
+        // ============================================================
+        function buildStrategies(inp, c) {
+            const strategies = [];
+            const margRate = parseFloat(c.marginalRate) / 100;
+
+            // RRSP optimization
+            const rrspGap = Math.max(0, inp.rrspRoom - inp.rrspContribution);
+            if (rrspGap > 0) {
+                const savings = rrspGap * margRate;
+                strategies.push({
+                    title: "Maximize RRSP Contribution",
+                    priority: savings > 5000 ? 'high' : savings > 2000 ? 'medium' : 'low',
+                    savings: Math.round(savings),
+                    action: `Contribute an additional $${rrspGap.toLocaleString('en-CA')} to your RRSP before the March deadline to save $${Math.round(savings).toLocaleString('en-CA')} in tax at your marginal rate of ${(margRate * 100).toFixed(1)}%.`,
+                    deadline: "March 1 of the following year"
+                });
+            }
+
+            // Spousal RRSP for income splitting
+            if (inp.yourIncome > inp.spouseIncome + 30000 && rrspGap > 5000) {
+                const splitAmount = Math.min(rrspGap, 15000);
+                const futureSavings = splitAmount * 0.15;
+                strategies.push({
+                    title: "Spousal RRSP for Future Income Splitting",
+                    priority: 'high',
+                    savings: Math.round(futureSavings),
+                    action: `You earn ~$${(inp.yourIncome - inp.spouseIncome).toLocaleString('en-CA')} more than your spouse. Contributing $${splitAmount.toLocaleString('en-CA')} to a spousal RRSP gives you the deduction now, while your spouse pays tax later at their lower retirement bracket.`,
+                    deadline: "Anytime before March 1"
+                });
+            }
+
+            // FHSA priority
+            if (inp.firstTimeBuyer === 'yes' && inp.fhsaContribution < 8000) {
+                const fhsaGap = 8000 - inp.fhsaContribution;
+                const savings = fhsaGap * margRate;
+                strategies.push({
+                    title: "Open & Max FHSA — Highest Priority",
+                    priority: 'high',
+                    savings: Math.round(savings),
+                    action: `As a first-time buyer, contribute $${fhsaGap.toLocaleString('en-CA')} to FHSA. You get RRSP-style deduction NOW + tax-free withdrawal for first home. Better than RRSP for this purpose. Save $${Math.round(savings).toLocaleString('en-CA')}.`,
+                    deadline: "Dec 31 (calendar year)"
+                });
+            }
+
+            // Capital gains harvesting
+            if (inp.capitalGains > 0 && inp.unrealizedGains > 0) {
+                strategies.push({
+                    title: "Tax-Loss Harvesting",
+                    priority: 'medium',
+                    savings: Math.round(inp.capitalGains * 0.5 * margRate * 0.3),
+                    action: `Review your non-registered portfolio for unrealized losses. Selling a loser to offset gains saves tax at your marginal rate. Avoid superficial loss: don't repurchase within 30 days.`,
+                    deadline: "Dec 31 settlement (T+2)"
+                });
+            }
+
+            // Stock option 110(1)(d)
+            if (inp.optionBenefit > 0 && !inp.optionDeduction) {
+                strategies.push({
+                    title: "Verify Stock Option 110(1)(d) Deduction",
+                    priority: 'high',
+                    savings: Math.round(inp.optionBenefit * 0.5 * margRate),
+                    action: `If your option exercise price was ≥ FMV at grant date AND options are for a public company OR were granted as CCPC shares held >2 years, you may qualify for 50% deduction on the $${inp.optionBenefit.toLocaleString('en-CA')} benefit. Confirm with your employer's stock plan administrator.`,
+                    deadline: "Filing time"
+                });
+            }
+
+            // TFSA priority for tax-free growth
+            if (inp.tfsaContribution < 7000) {
+                const tfsaGap = 7000 - inp.tfsaContribution;
+                strategies.push({
+                    title: "Use TFSA for Tax-Free Growth",
+                    priority: 'medium',
+                    savings: Math.round(tfsaGap * 0.07 * margRate),
+                    action: `Contribute $${tfsaGap.toLocaleString('en-CA')} to TFSA. While not deductible, all future gains, dividends, and withdrawals are tax-free. Long-term, this saves ~$${Math.round(tfsaGap * 0.07 * margRate).toLocaleString('en-CA')}/year on growth.`,
+                    deadline: "No deadline (lifetime room)"
+                });
+            }
+
+            // RESP for kids
+            const numKids = inp.childrenUnder7 + inp.children7to16;
+            if (numKids > 0 && inp.respContribution < numKids * 2500) {
+                const respGap = numKids * 2500 - inp.respContribution;
+                strategies.push({
+                    title: "Maximize RESP for CESG Government Match",
+                    priority: 'high',
+                    savings: Math.round(respGap * 0.20),
+                    action: `Contribute $${respGap.toLocaleString('en-CA')} more to RESP (up to $2,500/child) to receive 20% CESG = $${Math.round(respGap * 0.20).toLocaleString('en-CA')} FREE government grant. Lifetime CESG cap is $7,200 per child.`,
+                    deadline: "Dec 31 each year"
+                });
+            }
+
+            // Childcare attribution
+            if (inp.childcareExpenses > 0 && inp.primaryEarner === 'yes' && inp.spouseIncome > 0) {
+                strategies.push({
+                    title: "Childcare Must Be Claimed by Lower-Income Spouse",
+                    priority: 'medium',
+                    savings: Math.round(inp.childcareExpenses * 0.05),
+                    action: `Childcare expenses ($${inp.childcareExpenses.toLocaleString('en-CA')}) must be claimed by the lower-income spouse for federal purposes. This rule cannot be optimized — but ensure proper attribution.`,
+                    deadline: "Filing time"
+                });
+            }
+
+            // Pension splitting (if 65+)
+            if (inp.yourAge >= 65 || inp.spouseAge >= 65) {
+                strategies.push({
+                    title: "Pension Income Splitting (T1032)",
+                    priority: 'medium',
+                    savings: 1000,
+                    action: `One spouse is 65+. Split up to 50% of eligible pension income with the other spouse via T1032. Optimal split balances both spouses' marginal rates.`,
+                    deadline: "Filing time"
+                });
+            }
+
+            // Charitable bunching
+            if (inp.charitableDonations > 0 && inp.charitableDonations < 200) {
+                strategies.push({
+                    title: "Bunch Donations Over $200 Threshold",
+                    priority: 'low',
+                    savings: Math.round((200 - inp.charitableDonations) * 0.14),
+                    action: `Donations under $200 receive only 15% credit. Bunching multi-year donations into one year (using donor-advised fund) above $200 yields 29-33% federal credit on the excess.`,
+                    deadline: "Dec 31"
+                });
+            }
+
+            // Donate appreciated securities
+            if (inp.unrealizedGains > 5000 && inp.charitableDonations > 0) {
+                strategies.push({
+                    title: "Donate Appreciated Securities In-Kind",
+                    priority: 'medium',
+                    savings: Math.round(inp.charitableDonations * 0.5 * margRate),
+                    action: `Donating appreciated stocks/ETFs directly to charity eliminates the capital gain entirely AND gives full FMV donation receipt. Best charitable strategy in Canada.`,
+                    deadline: "Settlement T+2 before Dec 31"
+                });
+            }
+
+            // OTB filing
+            if (inp.housingAmount > 0) {
+                strategies.push({
+                    title: "File Schedule ON-BEN for OTB",
+                    priority: 'medium',
+                    savings: Math.round(c.otbTotal),
+                    action: `Your Ontario Trillium Benefit estimate is $${Math.round(c.otbTotal).toLocaleString('en-CA')}. File Schedule ON-BEN with your return to receive monthly OTB payments. Never skipped, even at high income.`,
+                    deadline: "Tax filing"
+                });
+            }
+
+            // Foreign dividend optimization
+            if (inp.foreignDividends > 1000) {
+                strategies.push({
+                    title: "Move US Dividend Stocks to RRSP",
+                    priority: 'low',
+                    savings: Math.round(inp.foreignDividends * 0.15),
+                    action: `US dividends suffer 15% withholding tax. Inside RRSP, the Canada-US tax treaty exempts this. Move US dividend stocks to RRSP, hold Canadian dividends in non-registered for the dividend tax credit.`,
+                    deadline: "Anytime"
+                });
+            }
+
+            // Eligible dividends for retirement income
+            if (inp.eligibleDividends > 0) {
+                strategies.push({
+                    title: "Maximize Canadian Dividend Holdings (Non-Registered)",
+                    priority: 'low',
+                    savings: Math.round(inp.eligibleDividends * 0.10),
+                    action: `Eligible Canadian dividends benefit from gross-up + dividend tax credits. Effective tax rate on dividends in middle bracket is roughly half that on interest income. Hold quality Canadian dividend stocks (banks, utilities) here.`,
+                    deadline: "Anytime"
+                });
+            }
+
+            // Sort by priority + savings
+            const order = { high: 0, medium: 1, low: 2 };
+            strategies.sort((a, b) => {
+                if (order[a.priority] !== order[b.priority]) return order[a.priority] - order[b.priority];
+                return b.savings - a.savings;
+            });
+
+            // Render
+            let html = '';
+            strategies.forEach((s, idx) => {
+                const badge = s.priority === 'high' ? 'badge-gold' : s.priority === 'medium' ? 'badge-emerald' : 'badge-slate';
+                html += `
+                    <div class="strategy-card priority-${s.priority}">
+                        <div class="strategy-title">
+                            <span class="badge ${badge}">${s.priority.toUpperCase()}</span>
+                            <span>${s.title}</span>
+                            ${s.savings > 0 ? `<span class="strategy-savings">~$${s.savings.toLocaleString('en-CA')}</span>` : ''}
+                        </div>
+                        <div class="strategy-desc">${s.action}</div>
+                        <div style="font-size:11px;color:#64748b;margin-top:6px;font-style:italic;">⏱ Deadline: ${s.deadline}</div>
+                    </div>
+                `;
+            });
+
+            if (strategies.length === 0) {
+                html = '<p class="text-slate-400 text-sm">Your filing appears well optimized. Consider reviewing year-end tax-loss harvesting opportunities.</p>';
+            }
+
+            document.getElementById('strategyList').innerHTML = html;
+            lastCalc.strategies = strategies;
+        }
+
+        // ============================================================
+        // CHECKLIST
+        // ============================================================
+        function buildChecklist(inp) {
+            const items = [
+                { req: true, label: 'T4 Slip (Employment Income)' },
+                { req: inp.rsuIncome > 0 || inp.optionBenefit > 0 || inp.esppBenefit > 0, label: 'T4 Box 38 (Stock Option Benefit) / Box 39 (110(1)(d) deduction)' },
+                { req: inp.rsuIncome > 0, label: 'Brokerage statement: RSU vest dates & FMV (for ACB tracking)' },
+                { req: inp.optionBenefit > 0, label: 'Stock option grant agreement & exercise records' },
+                { req: inp.esppBenefit > 0, label: 'ESPP transaction history & T4 Box 38' },
+                { req: inp.capitalGains > 0 || inp.capitalLosses > 0, label: 'T5008 Slips (Securities Transactions)' },
+                { req: inp.eligibleDividends > 0, label: 'T5 Slip (Dividends & Investment Income)' },
+                { req: inp.foreignDividends > 0, label: 'T3 Slip + Foreign income statement (US 1099)' },
+                { req: inp.interestIncome > 0, label: 'T5 Slip (Interest Income)' },
+                { req: inp.rrspContribution > 0 || inp.spousalRRSP > 0, label: 'RRSP Contribution Receipts (incl. spousal)' },
+                { req: inp.fhsaContribution > 0, label: 'FHSA Contribution Receipt' },
+                { req: inp.respContribution > 0, label: 'RESP Contribution Records' },
+                { req: inp.childcareExpenses > 0, label: 'Childcare Receipts (provider name + SIN)' },
+                { req: inp.medicalExpenses > 0, label: 'Medical Receipts (12-month period optimization)' },
+                { req: inp.charitableDonations > 0, label: 'Charitable Donation Receipts (registered charity #)' },
+                { req: inp.unionDues > 0, label: 'Union/Professional Dues Receipt (T4 Box 44)' },
+                { req: inp.homeOfficeDays > 0, label: 'T2200 / Home Office Worksheet' },
+                { req: inp.housingType === 'tax', label: 'Property Tax Bill (City of Ottawa)' },
+                { req: inp.housingType === 'rent', label: 'Rent Receipts + Landlord Info' },
+                { req: true, label: 'Notice of Assessment from Prior Year' },
+                { req: true, label: 'Spouse SIN + Date of Birth' },
+                { req: inp.childrenUnder7 + inp.children7to16 > 0, label: 'Children SINs + Dates of Birth' }
+            ];
+
+            let html = '';
+            items.forEach((item, idx) => {
+                if (!item.req) return;
+                html += `
+                    <div class="checklist-item tap-area" onclick="toggleChecklist(this)">
+                        <div class="checklist-checkbox" data-idx="${idx}"></div>
+                        <span>${item.label}</span>
+                    </div>
+                `;
+            });
+            document.getElementById('checklistContainer').innerHTML = html;
+            lastCalc.checklist = items.filter(i => i.req).map(i => ({ item: i.label, completed: false }));
+        }
+
+        function toggleChecklist(el) {
+            const cb = el.querySelector('.checklist-checkbox');
+            cb.classList.toggle('checked');
+            const idx = parseInt(cb.dataset.idx);
+            if (lastCalc && lastCalc.checklist) {
+                const items = lastCalc.checklist;
+                if (items[idx]) items[idx].completed = cb.classList.contains('checked');
+            }
+        }
+
+        // ============================================================
+        // JSON EXPORT
+        // ============================================================
+        function buildExportObject() {
+            if (!lastCalc) return null;
+            const inp = lastCalc.inputs;
+            const c = lastCalc.computed;
+            return {
+                metadata: {
+                    generatedAt: new Date().toISOString(),
+                    taxYear: 2024,
+                    jurisdiction: "Canada / Ontario / Ottawa",
+                    appVersion: "1.0",
+                    disclaimer: "Estimates only. Consult a CPA for filing."
+                },
+                householdProfile: {
+                    yourAge: inp.yourAge,
+                    spouseAge: inp.spouseAge,
+                    childrenUnder7: inp.childrenUnder7,
+                    children7to16: inp.children7to16,
+                    primaryEarner: inp.primaryEarner,
+                    firstTimeHomeBuyer: inp.firstTimeBuyer === 'yes'
+                },
+                income: {
+                    yourEmploymentIncome: inp.yourIncome,
+                    spouseEmploymentIncome: inp.spouseIncome,
+                    rsuIncomeInT4: inp.rsuIncome,
+                    stockOptionBenefit: inp.optionBenefit,
+                    stockOption110_1_d_eligible: inp.optionDeduction,
+                    esppDiscountBenefit: inp.esppBenefit,
+                    capitalGainsRealized: inp.capitalGains,
+                    capitalLossesRealized: inp.capitalLosses,
+                    capitalLossCarryforward: inp.carryforwardLosses,
+                    netCapitalGains: c.netCapitalGains,
+                    taxableCapitalGains: c.taxableCapGains,
+                    eligibleCanadianDividends: inp.eligibleDividends,
+                    grossedUpDividends: c.grossedDividends,
+                    foreignDividends: inp.foreignDividends,
+                    interestIncome: inp.interestIncome,
+                    unrealizedGains: inp.unrealizedGains
+                },
+                deductions: {
+                    rrspContribution: inp.rrspContribution,
+                    rrspRoom: inp.rrspRoom,
+                    spousalRRSP: inp.spousalRRSP,
+                    fhsaContribution: inp.fhsaContribution,
+                    tfsaContribution: inp.tfsaContribution,
+                    respContribution: inp.respContribution,
+                    childcareExpenses: inp.childcareExpenses,
+                    medicalExpenses: inp.medicalExpenses,
+                    charitableDonations: inp.charitableDonations,
+                    unionDues: inp.unionDues,
+                    homeOfficeFlatRate: Math.min(inp.homeOfficeDays * 2, 500),
+                    rppContribution: inp.rppContribution,
+                    stockOptionDeduction: c.stockOptionDeduction,
+                    totalDeductions: c.totalDeductions
+                },
+                housing: {
+                    type: inp.housingType,
+                    amount: inp.housingAmount,
+                    mortgageInterest: inp.mortgageInterest
+                },
+                taxCalculation: {
+                    taxableIncome: c.taxableIncome,
+                    federalTaxBeforeCredits: c.fedTaxBefore,
+                    federalTaxAfterCredits: c.fedTax,
+                    ontarioTaxAfterCredits: c.onTaxAfterCredits,
+                    ontarioSurtax: c.onSurtax,
+                    ontarioHealthPremium: c.onHealthPremium,
+                    ontarioChildCareTaxCredit: c.ontarioCCTC,
+                    totalOntarioTax: c.ontarioTax,
+                    totalTax: c.totalTax,
+                    cppContribution: inp.cppContribution,
+                    eiContribution: inp.eiContribution,
+                    taxAlreadyWithheld: inp.taxWithheld,
+                    netResult: c.netResult,
+                    netResultLabel: c.netResult >= 0 ? 'refund' : 'owing',
+                    effectiveRate: c.effectiveRate + '%',
+                    marginalRate: c.marginalRate + '%'
+                },
+                governmentBenefits: {
+                    canadaChildBenefitAnnual: Math.round(c.ccbAnnual),
+                    canadaChildBenefitMonthly: Math.round(c.ccbAnnual / 12),
+                    ontarioTrilliumBenefit: Math.round(c.otbTotal),
+                    ontarioTrilliumBreakdown: {
+                        propertyTaxCredit: Math.round(c.otbProperty),
+                        energyCredit: Math.round(c.otbEnergy),
+                        salesTaxCredit: Math.round(c.otbSales)
+                    },
+                    totalAnnualBenefits: Math.round(c.ccbAnnual + c.otbTotal)
+                },
+                creditsApplied: {
+                    federalBPA: Math.round(c.fedBPACredit),
+                    spouseAmount: Math.round(c.spouseAmountCredit),
+                    eligibleDividendCreditFederal: Math.round(c.eligibleDivCredit),
+                    eligibleDividendCreditOntario: Math.round(c.onEligibleDivCredit),
+                    medicalThreshold: Math.round(c.medicalThreshold)
+                },
+                recommendations: lastCalc.strategies || [],
+                documentChecklist: lastCalc.checklist || [],
+                actionPlan: {
+                    beforeYearEnd: lastCalc.strategies.filter(s => s.deadline.includes('Dec 31') || s.deadline.includes('settlement')).map(s => s.title),
+                    beforeMarch1: lastCalc.strategies.filter(s => s.deadline.includes('March')).map(s => s.title),
+                    atFilingTime: lastCalc.strategies.filter(s => s.deadline.includes('Filing')).map(s => s.title),
+                    ongoing: lastCalc.strategies.filter(s => s.deadline.includes('Anytime')).map(s => s.title)
+                },
+                educationalResources: educationModules.map(m => m.title)
+            };
+        }
+
+        function buildJSONPreview() {
+            const obj = buildExportObject();
+            if (!obj) return;
+            document.getElementById('jsonPreview').textContent = JSON.stringify(obj, null, 2);
+        }
+
+        function downloadJSON() {
+            const obj = buildExportObject();
+            if (!obj) {
+                alert('Run calculation first.');
+                return;
+            }
+            const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tax-plan-' + new Date().toISOString().split('T')[0] + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function copyJSON() {
+            const obj = buildExportObject();
+            if (!obj) return;
+            navigator.clipboard.writeText(JSON.stringify(obj, null, 2)).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
+        function downloadCSV() {
+            const obj = buildExportObject();
+            if (!obj) return;
+            let csv = 'Category,Item,Value\n';
+            const flatten = (o, prefix = '') => {
+                Object.entries(o).forEach(([k, v]) => {
+                    if (v && typeof v === 'object' && !Array.isArray(v)) {
+                        flatten(v, prefix + k + '.');
+                    } else if (Array.isArray(v)) {
+                        csv += `${prefix}${k},count,${v.length}\n`;
+                    } else {
+                        csv += `${prefix}${k},${k},"${v}"\n`;
+                    }
+                });
+            };
+            flatten(obj);
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'tax-plan-' + new Date().toISOString().split('T')[0] + '.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ============================================================
+        // RESET
+        // ============================================================
+        function resetApp() {
+            ['yourIncome','spouseIncome','cppContribution','eiContribution','rppContribution','taxWithheld',
+             'rsuIncome','optionBenefit','esppBenefit','capitalGains','capitalLosses','carryforwardLosses',
+             'eligibleDividends','foreignDividends','interestIncome','unrealizedGains',
+             'rrspContribution','rrspRoom','spousalRRSP','fhsaContribution','tfsaContribution','respContribution',
+             'childcareExpenses','medicalExpenses','charitableDonations','unionDues','homeOfficeDays',
+             'housingAmount','mortgageInterest'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            navigateTo('learnView');
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            const u = document.getElementById('usernameInput');
+            if (u) u.focus();
+        });
+    </script>
+</body>
+</html>
