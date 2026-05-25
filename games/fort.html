@@ -529,7 +529,6 @@ function createBuilding(pos, type, material = 0, dirAngle = 0) {
   const color = colors[material];
   const bMat = new THREE.MeshStandardMaterial({ color, roughness: material === 0 ? 1 : 0.7, metalness: material === 2 ? 0.3 : 0 });
   const group = new THREE.Group();
-  const y = getHeightAt(pos.x, pos.z);
   const hp = 200 + material * 200;
 
   if (type === 'wall') {
@@ -542,15 +541,15 @@ function createBuilding(pos, type, material = 0, dirAngle = 0) {
 
   } else if (type === 'stair') {
     const shape = new THREE.Shape();
-    shape.moveTo(-2, 0);
-    shape.lineTo(2, 0);
-    shape.lineTo(2, 3.5);
+    shape.moveTo(-1, 0);
+    shape.lineTo(1, 0);
+    shape.lineTo(1, 2);
     shape.closePath();
-    const geo = new THREE.ExtrudeGeometry(shape, { depth: 4, bevelEnabled: false });
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: 2, bevelEnabled: false });
     const ramp = new THREE.Mesh(geo, bMat.clone());
     ramp.material.side = THREE.DoubleSide;
-    ramp.rotation.y = -Math.PI / 2;
-    ramp.position.set(2, 0, -1);
+    ramp.rotation.y = Math.PI / 2;
+    ramp.position.set(-1, 0, 0);
     ramp.castShadow = true;
     ramp.receiveShadow = true;
     group.add(ramp);
@@ -574,7 +573,7 @@ function createBuilding(pos, type, material = 0, dirAngle = 0) {
     group.userData = { hp, maxHp: hp, type: 'cone', material: names[material] };
   }
 
-  group.position.set(pos.x, y, pos.z);
+  group.position.set(pos.x, pos.y, pos.z);
   group.rotation.y = dirAngle;
 
   return group;
@@ -587,8 +586,8 @@ const pantsMat = new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.
 const shoeMat = new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.7 });
 const bpMat = new THREE.MeshStandardMaterial({ color: 0xe67e22, roughness: 0.6 });
 
-const torso = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.55, 0.4), outfitMat);
-torso.position.y = 0.55;
+const torso = new THREE.Mesh(new THREE.BoxGeometry(0.01, 0.01, 0.01), outfitMat);
+torso.position.y = 0.01;
 torso.castShadow = true;
 playerBody.add(torso);
 
@@ -1338,16 +1337,35 @@ function placeBuilding(bType) {
   const cost = costs[bType] || 10;
   if (player.materials[matTypes[mat]] < cost) return;
 
+  const dirAngle = Math.round(player.yaw / (Math.PI / 2)) * (Math.PI / 2);
   const forward = new THREE.Vector3(0, 0, -1);
-  forward.applyQuaternion(camera.quaternion);
-  forward.y = 0;
-  forward.normalize();
+  forward.applyAxisAngle(new THREE.Vector3(0, 1, 0), dirAngle);
 
-  const placeDist = 5;
+  const placeDist = 4;
   const pos = player.pos.clone().add(forward.clone().multiplyScalar(placeDist));
-  pos.y = getHeightAt(pos.x, pos.z);
 
-  const building = createBuilding(pos, bType, mat, player.yaw);
+  pos.x = Math.round(pos.x / 2) * 2;
+  pos.z = Math.round(pos.z / 2) * 2;
+
+  let baseY = getHeightAt(pos.x, pos.z);
+  for (const b of GAME.buildings) {
+    if (Math.abs(b.position.x - pos.x) < 0.5 && Math.abs(b.position.z - pos.z) < 0.5) {
+      const ud = b.userData;
+      if (ud.type === 'floor') baseY = Math.max(baseY, b.position.y + 0.3);
+      else if (ud.type === 'stair') baseY = Math.max(baseY, b.position.y + 2);
+      else baseY = Math.max(baseY, b.position.y + 3.5);
+    }
+  }
+  pos.y = baseY;
+
+  let rotAngle = dirAngle;
+  if (bType === 'stair') {
+    const dx = player.pos.x - pos.x;
+    const dz = player.pos.z - pos.z;
+    rotAngle = Math.atan2(dx, dz);
+  }
+
+  const building = createBuilding(pos, bType, mat, rotAngle);
   scene.add(building);
   GAME.buildings.push(building);
   player.materials[matTypes[mat]] -= cost;
@@ -1636,26 +1654,44 @@ function updatePlayer(delta) {
   const groundY = getHeightAt(newPos.x, newPos.z);
   newPos.y += player.vel.y * delta;
 
-  if (newPos.y <= groundY) {
-    newPos.y = groundY;
-    player.vel.y = 0;
-    player.onGround = true;
-  } else {
-    player.onGround = false;
-  }
-
+  let buildTop = -Infinity;
   for (const b of GAME.buildings) {
     const bPos = b.position;
     const dx = newPos.x - bPos.x;
     const dz = newPos.z - bPos.z;
     const dist = Math.sqrt(dx * dx + dz * dz);
-    if (dist < 2) {
-      const overlap = 2 - dist;
+    const ud = b.userData;
+    const bHalf = ud.type === 'stair' ? 1 : ud.type === 'floor' ? 2 : 2;
+    if (dist < bHalf + 0.3 && (ud.type === 'wall' || ud.type === 'cone')) {
+      const overlap = bHalf + 0.3 - dist;
       if (dist > 0.01) {
         newPos.x += (dx / dist) * overlap;
         newPos.z += (dz / dist) * overlap;
       }
     }
+    if (Math.abs(dx) < (ud.type === 'stair' ? 1 : 2) && Math.abs(dz) < (ud.type === 'stair' ? 1 : 2)) {
+      if (ud.type === 'floor') {
+        buildTop = Math.max(buildTop, bPos.y + 0.3);
+      } else if (ud.type === 'stair') {
+        const localZ = (newPos.x - bPos.x) * Math.sin(b.rotation.y) + (newPos.z - bPos.z) * Math.cos(b.rotation.y);
+        if (localZ > -1 && localZ < 1) {
+          const t = (1 - localZ) / 2;
+          buildTop = Math.max(buildTop, bPos.y + t * 2);
+        }
+      } else if (ud.type === 'wall') {
+        buildTop = Math.max(buildTop, bPos.y + 3.5);
+      } else if (ud.type === 'cone') {
+        buildTop = Math.max(buildTop, bPos.y + 3.5);
+      }
+    }
+  }
+  const highestGround = Math.max(groundY, buildTop === -Infinity ? -Infinity : buildTop);
+  if (newPos.y <= highestGround) {
+    newPos.y = highestGround;
+    player.vel.y = 0;
+    player.onGround = true;
+  } else {
+    player.onGround = false;
   }
 
   player.pos.copy(newPos);
