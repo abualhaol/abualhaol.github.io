@@ -238,7 +238,7 @@ const GAME = {
   maxHealth: 100,
   maxShield: 100,
   eliminations: 0,
-  materials: { wood: 100, stone: 50, metal: 20 },
+  materials: { wood: 99999, stone: 50, metal: 20 },
   isDead: false,
   weaponSlots: [],
   activeWeapon: 0,
@@ -532,8 +532,8 @@ function createBuilding(pos, type, material = 0, dirAngle = 0) {
   const hp = 200 + material * 200;
 
   if (type === 'wall') {
-    const wall = new THREE.Mesh(new THREE.BoxGeometry(4, 3.5, 0.5), bMat);
-    wall.position.y = 1.75;
+    const wall = new THREE.Mesh(new THREE.BoxGeometry(2, 3, 0.25), bMat);
+    wall.position.y = 1.5;
     wall.castShadow = true;
     wall.receiveShadow = true;
     group.add(wall);
@@ -556,16 +556,16 @@ function createBuilding(pos, type, material = 0, dirAngle = 0) {
     group.userData = { hp, maxHp: hp, type: 'stair', material: names[material] };
 
   } else if (type === 'floor') {
-    const floor = new THREE.Mesh(new THREE.BoxGeometry(4, 0.3, 4), bMat);
-    floor.position.y = 0.15;
+    const floor = new THREE.Mesh(new THREE.BoxGeometry(2, 0.2, 2), bMat);
+    floor.position.y = 0.1;
     floor.castShadow = true;
     floor.receiveShadow = true;
     group.add(floor);
     group.userData = { hp: hp * 0.8, maxHp: hp * 0.8, type: 'floor', material: names[material] };
 
   } else if (type === 'cone') {
-    const cone = new THREE.Mesh(new THREE.ConeGeometry(2, 3.5, 4), bMat);
-    cone.position.y = 1.75;
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(1, 3, 4), bMat);
+    cone.position.y = 1.5;
     cone.castShadow = true;
     cone.receiveShadow = true;
     cone.rotation.y = Math.PI / 4;
@@ -580,16 +580,10 @@ function createBuilding(pos, type, material = 0, dirAngle = 0) {
 }
 
 const playerBody = new THREE.Group();
-const outfitMat = new THREE.MeshStandardMaterial({ color: 0x2e86de, roughness: 0.4, metalness: 0.05 });
 const skinMat = new THREE.MeshStandardMaterial({ color: 0xf0c8a0, roughness: 0.6 });
 const pantsMat = new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.5 });
 const shoeMat = new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.7 });
 const bpMat = new THREE.MeshStandardMaterial({ color: 0xe67e22, roughness: 0.6 });
-
-const torso = new THREE.Mesh(new THREE.BoxGeometry(0.01, 0.01, 0.01), outfitMat);
-torso.position.y = 0.01;
-torso.castShadow = true;
-playerBody.add(torso);
 
 const belt = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.08, 0.44), new THREE.MeshStandardMaterial({ color: 0x8B4513, roughness: 0.6 }));
 belt.position.y = 0.28;
@@ -601,12 +595,12 @@ headMesh.position.y = 1.0;
 headMesh.castShadow = true;
 playerBody.add(headMesh);
 
-const hat = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.2, 8), new THREE.MeshStandardMaterial({ color: 0x2e86de, roughness: 0.3 }));
+const hat = new THREE.Mesh(new THREE.ConeGeometry(0.28, 0.2, 8), new THREE.MeshStandardMaterial({ color: 0x34495e, roughness: 0.3 }));
 hat.position.y = 1.22;
 hat.rotation.x = 0.1;
 playerBody.add(hat);
 
-const hatBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.3, 0.04, 8), new THREE.MeshStandardMaterial({ color: 0x2471a3, roughness: 0.3 }));
+const hatBrim = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.3, 0.04, 8), new THREE.MeshStandardMaterial({ color: 0x2c3e50, roughness: 0.3 }));
 hatBrim.position.y = 1.12;
 playerBody.add(hatBrim);
 
@@ -614,25 +608,6 @@ const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.18, 0.1, 6), skin
 neck.position.y = 0.82;
 playerBody.add(neck);
 
-const upperArmMat = outfitMat;
-const foreArmMat = skinMat;
-const lUpperArm = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 0.3, 6), upperArmMat);
-lUpperArm.position.set(-0.5, 0.7, 0);
-lUpperArm.rotation.z = 0.15;
-playerBody.add(lUpperArm);
-const rUpperArm = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.12, 0.3, 6), upperArmMat);
-rUpperArm.position.set(0.5, 0.7, 0);
-rUpperArm.rotation.z = -0.15;
-playerBody.add(rUpperArm);
-
-const lForeArm = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.1, 0.3, 6), foreArmMat);
-lForeArm.position.set(-0.55, 0.45, 0.05);
-lForeArm.rotation.z = 0.2;
-playerBody.add(lForeArm);
-const rForeArm = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.1, 0.3, 6), foreArmMat);
-rForeArm.position.set(0.55, 0.45, 0.05);
-rForeArm.rotation.z = -0.2;
-playerBody.add(rForeArm);
 
 const lLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.15, 0.4, 6), pantsMat);
 lLeg.position.set(-0.2, 0.15, 0);
@@ -723,7 +698,7 @@ const player = {
   shield: 0,
   maxHealth: 100,
   maxShield: 100,
-  materials: { wood: 100, stone: 50, metal: 20 },
+  materials: { wood: 99999, stone: 50, metal: 20 },
   weaponSlots: WEAPONS.map(w => ({...w, ammo: w.ammo })),
   activeWeapon: 0,
   buildMat: 0,
@@ -1264,6 +1239,23 @@ function switchWeapon(idx) {
   }
 }
 
+function playShootSound() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.08);
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+    osc.start(audioCtx.currentTime);
+    osc.stop(audioCtx.currentTime + 0.08);
+  } catch(e) {}
+}
+
 function fireWeapon() {
   const now = Date.now();
   if (now - lastFireTime < player.weaponSlots[player.activeWeapon].fireRate) return;
@@ -1276,6 +1268,7 @@ function fireWeapon() {
   }
 
   lastFireTime = now;
+  playShootSound();
   if (!weapon.isMelee) weapon.ammo--;
   updateWeaponHUD();
 
@@ -1347,16 +1340,15 @@ function placeBuilding(bType) {
   pos.x = Math.round(pos.x / 2) * 2;
   pos.z = Math.round(pos.z / 2) * 2;
 
-  let baseY = getHeightAt(pos.x, pos.z);
+  pos.y = getHeightAt(pos.x, pos.z);
   for (const b of GAME.buildings) {
     if (Math.abs(b.position.x - pos.x) < 0.5 && Math.abs(b.position.z - pos.z) < 0.5) {
       const ud = b.userData;
-      if (ud.type === 'floor') baseY = Math.max(baseY, b.position.y + 0.3);
-      else if (ud.type === 'stair') baseY = Math.max(baseY, b.position.y + 2);
-      else baseY = Math.max(baseY, b.position.y + 3.5);
+      if (ud.type === 'floor') pos.y = Math.max(pos.y, b.position.y + 0.2);
+      else if (ud.type === 'stair') pos.y = Math.max(pos.y, b.position.y + 2);
+      else pos.y = Math.max(pos.y, b.position.y + 3);
     }
   }
-  pos.y = baseY;
 
   let rotAngle = dirAngle;
   if (bType === 'stair') {
@@ -1661,17 +1653,16 @@ function updatePlayer(delta) {
     const dz = newPos.z - bPos.z;
     const dist = Math.sqrt(dx * dx + dz * dz);
     const ud = b.userData;
-    const bHalf = ud.type === 'stair' ? 1 : ud.type === 'floor' ? 2 : 2;
-    if (dist < bHalf + 0.3 && (ud.type === 'wall' || ud.type === 'cone')) {
-      const overlap = bHalf + 0.3 - dist;
+    if (dist < 1.3 && (ud.type === 'wall' || ud.type === 'cone')) {
+      const overlap = 1.3 - dist;
       if (dist > 0.01) {
         newPos.x += (dx / dist) * overlap;
         newPos.z += (dz / dist) * overlap;
       }
     }
-    if (Math.abs(dx) < (ud.type === 'stair' ? 1 : 2) && Math.abs(dz) < (ud.type === 'stair' ? 1 : 2)) {
+    if (Math.abs(dx) < 1 && Math.abs(dz) < 1) {
       if (ud.type === 'floor') {
-        buildTop = Math.max(buildTop, bPos.y + 0.3);
+        buildTop = Math.max(buildTop, bPos.y + 0.2);
       } else if (ud.type === 'stair') {
         const localZ = (newPos.x - bPos.x) * Math.sin(b.rotation.y) + (newPos.z - bPos.z) * Math.cos(b.rotation.y);
         if (localZ > -1 && localZ < 1) {
@@ -1679,9 +1670,9 @@ function updatePlayer(delta) {
           buildTop = Math.max(buildTop, bPos.y + t * 2);
         }
       } else if (ud.type === 'wall') {
-        buildTop = Math.max(buildTop, bPos.y + 3.5);
+        buildTop = Math.max(buildTop, bPos.y + 3);
       } else if (ud.type === 'cone') {
-        buildTop = Math.max(buildTop, bPos.y + 3.5);
+        buildTop = Math.max(buildTop, bPos.y + 3);
       }
     }
   }
